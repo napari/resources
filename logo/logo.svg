@@ -27,15 +27,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showguides="true"
-     inkscape:zoom="0.088388348"
-     inkscape:cx="-1753.6248"
-     inkscape:cy="1046.518"
-     inkscape:window-width="2074"
+     inkscape:zoom="0.5"
+     inkscape:cx="598"
+     inkscape:cy="789"
+     inkscape:window-width="1278"
      inkscape:window-height="1568"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
-     inkscape:current-layer="g32" />
+     inkscape:current-layer="g22" />
   <defs
      id="defs19">
     <style
@@ -174,7 +174,8 @@
      id="title19">Artboard 1</title>
   <g
      id="g22"
-     transform="matrix(0.80468748,0,0,0.80468748,20.224609,20.224609)">
+     transform="matrix(0.80468748,0,0,0.80468748,20.224609,20.224609)"
+     inkscape:label="logo">
     <rect
        class="b"
        x="4.6601943e-07"
@@ -183,7 +184,8 @@
        height="207.10001"
        rx="47.084118"
        id="rect20-8"
-       style="fill:#1f0b26;fill-opacity:1;stroke-width:1.07378" />
+       style="fill:#1f0b26;fill-opacity:1;stroke-width:1.07378"
+       inkscape:label="outer-border" />
     <rect
        class="b"
        x="7.1199951"

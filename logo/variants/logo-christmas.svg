@@ -27,9 +27,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showguides="true"
-     inkscape:zoom="0.35355339"
-     inkscape:cx="424.26407"
-     inkscape:cy="999.84899"
+     inkscape:zoom="0.25"
+     inkscape:cx="474"
+     inkscape:cy="1162"
      inkscape:window-width="990"
      inkscape:window-height="1568"
      inkscape:window-x="0"
@@ -287,111 +287,7 @@
          offset="0.78"
          stop-color="#bcb5d9"
          id="stop10-1-0" /></radialGradient><style
-       id="style1-3">.cls-1{fill:#ff9e17;}.cls-2{fill:#fff;}.cls-3{fill:#00dc0c;}</style><style
-       id="style1-53">
-      .a {
-        fill: #06283d;
-      }
-
-      .b {
-        fill: url(#a);
-      }
-
-      .c {
-        fill: #a59678;
-      }
-
-      .d {
-        fill: url(#b);
-      }
-    </style><radialGradient
-       id="a-56"
-       cx="103.55"
-       cy="103.55"
-       fx="14.832241021269397"
-       fy="15.612815806821033"
-       r="196.89"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-4.7683716e-6)"><stop
-         offset="0"
-         stop-color="#746b7f"
-         id="stop1-29"
-         style="stop-color:#e56a05;stop-opacity:1;" /><stop
-         offset="0.12"
-         stop-color="#615b6f"
-         id="stop2-1"
-         style="stop-color:#c65b04;stop-opacity:1;" /><stop
-         offset="0.25999999"
-         stop-color="#514c60"
-         id="stop3-2"
-         style="stop-color:#a94e03;stop-opacity:1;" /><stop
-         offset="0.37"
-         stop-color="#4b475b"
-         id="stop4-7"
-         style="stop-color:#9f4903;stop-opacity:1;" /><stop
-         offset="0.44"
-         stop-color="#4f4b5f"
-         id="stop5-0"
-         style="stop-color:#a74d03;stop-opacity:1;" /><stop
-         offset="0.50999999"
-         stop-color="#5a566c"
-         id="stop6-9"
-         style="stop-color:#be5904;stop-opacity:1;" /><stop
-         offset="0.58999997"
-         stop-color="#6d6881"
-         id="stop7-36"
-         style="stop-color:#e46705;stop-opacity:1;" /><stop
-         offset="0.67000002"
-         stop-color="#87829e"
-         id="stop8-0"
-         style="stop-color:#fa8126;stop-opacity:1;" /><stop
-         offset="0.74000001"
-         stop-color="#a9a2c3"
-         id="stop9-6"
-         style="stop-color:#f77005;stop-opacity:1;" /><stop
-         offset="0.77999997"
-         stop-color="#bcb5d9"
-         id="stop10-2"
-         style="stop-color:#cf7a07;stop-opacity:1;" /></radialGradient><radialGradient
-       id="a-5-9"
-       cx="103.55"
-       cy="103.55"
-       fx="14.832241"
-       fy="15.612816"
-       r="196.89"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(117.03948,-39.542209)"><stop
-         offset="0"
-         stop-color="#746b7f"
-         id="stop1-2-2" /><stop
-         offset="0.12"
-         stop-color="#615b6f"
-         id="stop2-7-2" /><stop
-         offset="0.26"
-         stop-color="#514c60"
-         id="stop3-6-8" /><stop
-         offset="0.37"
-         stop-color="#4b475b"
-         id="stop4-1-9" /><stop
-         offset="0.44"
-         stop-color="#4f4b5f"
-         id="stop5-4-7" /><stop
-         offset="0.51"
-         stop-color="#5a566c"
-         id="stop6-2-3" /><stop
-         offset="0.59"
-         stop-color="#6d6881"
-         id="stop7-3-6" /><stop
-         offset="0.67"
-         stop-color="#87829e"
-         id="stop8-2-1" /><stop
-         offset="0.74"
-         stop-color="#a9a2c3"
-         id="stop9-2-29" /><stop
-         offset="0.78"
-         stop-color="#bcb5d9"
-         id="stop10-1-3" /></radialGradient><style
-       id="style1-3-1">.cls-1{fill:#ff9e17;}.cls-2{fill:#fff;}.cls-3{fill:#00dc0c;}</style></defs><title
+       id="style1-3">.cls-1{fill:#ff9e17;}.cls-2{fill:#fff;}.cls-3{fill:#00dc0c;}</style></defs><title
      id="title19">Artboard 1</title><metadata
      id="metadata13"><rdf:RDF><cc:Work
          rdf:about=""><dc:title>Artboard 1</dc:title></cc:Work></rdf:RDF></metadata><g
@@ -401,24 +297,7 @@
      transform="translate(100,100.14484)"><g
        id="g22-3"
        transform="matrix(3.9787541,0,0,3.9787541,-1.0513705e-6,-0.14484449)"
-       inkscape:label="logo"><rect
-         class="b"
-         x="4.6601943e-07"
-         y="4.6601943e-07"
-         width="207.10001"
-         height="207.10001"
-         rx="47.084118"
-         id="rect20-8-7"
-         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:5.0267;stroke-dasharray:none;stroke-opacity:1"
-         inkscape:label="outer-border" /><rect
-         class="b"
-         x="7.1199951"
-         y="7.1199999"
-         width="192.87"
-         height="192.87"
-         rx="40.057816"
-         id="rect20-5"
-         style="fill:#dd5803;fill-opacity:1" /><g
+       inkscape:label="logo"><g
          id="g22"><rect
            class="b"
            x="4.6601943e-07"
@@ -427,7 +306,8 @@
            height="207.10001"
            rx="47.084118"
            id="rect20-8"
-           style="fill:#000000;fill-opacity:1;stroke-width:1.07378" /><rect
+           style="display:inline;fill:#000000;fill-opacity:1;stroke-width:1.07378"
+           inkscape:label="outer-border" /><rect
            class="b"
            x="7.1199951"
            y="7.1199999"

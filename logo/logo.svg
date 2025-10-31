@@ -27,10 +27,10 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showguides="true"
-     inkscape:zoom="0.5"
-     inkscape:cx="389"
-     inkscape:cy="631"
-     inkscape:window-width="1100"
+     inkscape:zoom="0.088388348"
+     inkscape:cx="-1753.6248"
+     inkscape:cy="1046.518"
+     inkscape:window-width="2074"
      inkscape:window-height="1568"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -88,36 +88,36 @@
     </radialGradient>
     <linearGradient
        id="b"
-       x1="38.31"
-       y1="53.82"
-       x2="165.6"
-       y2="163.88"
+       x1="57.369335"
+       y1="37.498016"
+       x2="146.54068"
+       y2="180.202"
        gradientUnits="userSpaceOnUse">
       <stop
          offset="0"
          stop-color="#448491"
          id="stop11"
-         style="stop-color:#6299af;stop-opacity:1;" />
+         style="stop-color:#6fa1b7;stop-opacity:1;" />
       <stop
          offset="0.32887372"
          stop-color="#526a77"
          id="stop14"
-         style="stop-color:#4d7688;stop-opacity:1;" />
+         style="stop-color:#4e788a;stop-opacity:1;" />
       <stop
          offset="0.51335096"
          stop-color="#526a77"
          id="stop2"
-         style="stop-color:#436b7d;stop-opacity:1;" />
+         style="stop-color:#426c7f;stop-opacity:1;" />
       <stop
          offset="0.69782823"
          stop-color="#526a77"
          id="stop12"
-         style="stop-color:#4c7587;stop-opacity:1;" />
+         style="stop-color:#527d90;stop-opacity:1;" />
       <stop
          offset="1"
          stop-color="#94d1d6"
          id="stop19"
-         style="stop-color:#5b93ad;stop-opacity:1;" />
+         style="stop-color:#7ca9be;stop-opacity:1;" />
     </linearGradient>
     <radialGradient
        id="a-5"

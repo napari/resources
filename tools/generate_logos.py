@@ -32,6 +32,12 @@ namespace = {
 @click.argument('new-logo-path')
 @click.argument('border-color-dark')
 def cli(new_logo_path, border_color_dark):
+    """Generate all logo variants based on a new logo.
+
+    NEW_LOGO_PATH: the path of the new logo to use to generate. Should be
+        normally placed in the `variants` directory.
+    BORDER_COLOR_DARK: color (hex) to use for the border and text in the dark mode.
+    """
     new_logo_path = Path(new_logo_path)
     new_logo_root = etree.parse(new_logo_path).getroot()
     new_logo = new_logo_root.find(logo_xpath, namespaces=namespace)

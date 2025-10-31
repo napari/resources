@@ -25,9 +25,10 @@ namespace = {
 
 def change_border_color(root, color):
     # change the color of the border
+    # this affects anything labeled as `outer-border` as well as children nodes
     base_logo_border = root.findall(border_xpath, namespaces=namespace)
     for border in base_logo_border:
-        for element in (border, *border.getiterator()):
+        for element in (border, *border.getchildren()):
             if not element.get('style'):
                 continue
             new_border_style = re.sub(fill_color_regex, f'fill:{color};', element.get('style'))

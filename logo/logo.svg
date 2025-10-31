@@ -5,7 +5,7 @@
    viewBox="0 0 207.1 207.1"
    version="1.1"
    id="svg22"
-   sodipodi:docname="logo2.svg"
+   sodipodi:docname="logo.svg"
    inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
    inkscape:export-filename="logo.png"
    inkscape:export-xdpi="96"
@@ -30,7 +30,7 @@
      inkscape:zoom="0.5"
      inkscape:cx="389"
      inkscape:cy="631"
-     inkscape:window-width="1278"
+     inkscape:window-width="1100"
      inkscape:window-height="1568"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -102,12 +102,17 @@
          offset="0.32887372"
          stop-color="#526a77"
          id="stop14"
-         style="stop-color:#4f7a8c;stop-opacity:1;" />
+         style="stop-color:#4d7688;stop-opacity:1;" />
+      <stop
+         offset="0.51335096"
+         stop-color="#526a77"
+         id="stop2"
+         style="stop-color:#436b7d;stop-opacity:1;" />
       <stop
          offset="0.69782823"
          stop-color="#526a77"
          id="stop12"
-         style="stop-color:#4f7a8c;stop-opacity:1;" />
+         style="stop-color:#4c7587;stop-opacity:1;" />
       <stop
          offset="1"
          stop-color="#94d1d6"

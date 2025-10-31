@@ -13,7 +13,8 @@ from pathlib import Path
 import re
 import copy
 
-logo_root = Path(__file__).parent.parent / 'logo'
+logo_root = Path(__file__).parent.parent / 'logo' / 'base'
+logo_only = logo_root / 'logo.svg'
 logo_text = logo_root / 'logo-text.svg'
 logo_text_side = logo_root / 'logo-text-side.svg'
 fill_color_regex = r'fill:(#.*?);'
@@ -39,8 +40,8 @@ def cli(new_logo_path, border_color_dark):
     if not border_color_dark.startswith('#'):
         border_color_dark = '#' + border_color_dark
 
-    colors = {'light': border_color_light, 'dark': border_color_dark}
-    variants = {'text': logo_text, 'text-side': logo_text_side}
+    colors = {'-light': border_color_light, '-dark': border_color_dark}
+    variants = {'': logo_only, '-text': logo_text, '-text-side': logo_text_side}
 
     for variant, base_logo_path in variants.items():
         for theme, color in colors.items():
@@ -54,10 +55,11 @@ def cli(new_logo_path, border_color_dark):
             base_logo_border.set('style', new_border_style)
 
             napari_text = base_logo_root.find(napari_text_xpath, namespaces=namespace)
-            new_text_style = re.sub(fill_color_regex, f'fill:{color};', napari_text.get('style'))
-            napari_text.set('style', new_text_style)
+            if napari_text is not None:
+                new_text_style = re.sub(fill_color_regex, f'fill:{color};', napari_text.get('style'))
+                napari_text.set('style', new_text_style)
 
-            output_path = new_logo_path.with_stem(f'{new_logo_path.stem}-{variant}-{theme}')
+            output_path = logo_root.parent / 'generated' / f'{new_logo_path.stem}{variant}{theme}.svg'
             base_logo_tree.write(output_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
             print(f'Generated {output_path}.')
 

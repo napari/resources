@@ -55,7 +55,7 @@ def cli(new_logo_path, border_color_dark):
     from lxml import etree
     import cairosvg
 
-    logo_root = Path(__file__).parent.parent / 'logo' / 'base'
+    logo_root = Path(__file__).parent.parent / 'logo' / 'templates'
     logo_only = logo_root / 'logo.svg'
     logo_text = logo_root / 'logo-text.svg'
     logo_text_side = logo_root / 'logo-text-side.svg'

@@ -28,14 +28,14 @@
      inkscape:deskcolor="#d1d1d1"
      showguides="true"
      inkscape:zoom="0.35355339"
-     inkscape:cx="425.67828"
+     inkscape:cx="424.26407"
      inkscape:cy="999.84899"
-     inkscape:window-width="1278"
+     inkscape:window-width="990"
      inkscape:window-height="1568"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
-     inkscape:current-layer="layer1" /><defs
+     inkscape:current-layer="g22-3" /><defs
      id="defs19"><style
        id="style1">
       .a {
@@ -587,12 +587,14 @@
              id="path9-23"
              cx="19.683592"
              cy="97.238297"
-             r="3.2673545" /><circle
+             r="3.2673545"
+             inkscape:label="path9-23" /><circle
              style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:6.28337;stroke-linecap:round;stroke-linejoin:round"
              id="path9-5"
              cx="192.51581"
              cy="159.46832"
-             r="3.2673545" /><circle
+             r="3.2673545"
+             inkscape:label="path9-5" /><circle
              style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:6.28337;stroke-linecap:round;stroke-linejoin:round"
              id="path9-22"
              cx="167.07304"

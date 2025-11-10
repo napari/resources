@@ -4,7 +4,6 @@
 # dependencies = [
 #   "click",
 #   "lxml",
-#   "cairosvg"
 # ]
 # ///
 
@@ -42,10 +41,7 @@ def change_border_color(root, color):
         napari_text.set('style', new_text_style)
 
 
-@click.command()
-@click.argument('new-logo-path')
-@click.argument('border-color-dark')
-def cli(new_logo_path, border_color_dark):
+def generate_variants(new_logo_path, border_color_dark):
     """Generate all logo variants based on a new logo.
 
     NEW_LOGO_PATH: the path of the new logo to use to generate. Should be
@@ -53,7 +49,6 @@ def cli(new_logo_path, border_color_dark):
     BORDER_COLOR_DARK: color (hex) to use for the border and text in the dark mode.
     """
     from lxml import etree
-    import cairosvg
 
     logo_root = Path(__file__).parent.parent / 'logo' / 'templates'
     logo_only = logo_root / 'logo.svg'
@@ -85,9 +80,29 @@ def cli(new_logo_path, border_color_dark):
             # generate outputs
             output_svg = logo_root.parent / 'generated' / f'{new_logo_path.stem}{variant}{theme}.svg'
             base_logo_tree.write(output_svg, pretty_print=True, xml_declaration=True, encoding="utf-8")
-            output_png = output_svg.with_suffix('.png')
-            cairosvg.svg2png(url=str(output_svg), write_to=str(output_png))
             print(f'Generated {output_svg.stem}.')
+
+
+@click.command()
+@click.option('-o', '--only')
+def cli(only):
+    logo_variants = Path(__file__).parent.parent / 'logo' / 'variants'
+
+    # NOTE: these colors should be without alpha, otherwise for some reason inkscape
+    #       fucks up and you end up with a random graident instead of a fill O.o
+    dark_variant_colors = {
+        'logo': 'ccb98f',
+        'logo-flat': 'ccb98f',
+        'logo-halloween': 'cdd7db',
+        'logo-christmas': 'e3c300',
+    }
+
+    if only is not None:
+        dark_variant_colors = {only: dark_variant_colors.get(only)}
+
+    for variant, dark_color in dark_variant_colors.items():
+        path = logo_variants / f'{variant}.svg'
+        generate_variants(path, dark_color)
 
 
 if __name__ == '__main__':

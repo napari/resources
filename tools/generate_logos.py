@@ -100,11 +100,28 @@ def cli(only):
 
     # NOTE: these colors should be without alpha, otherwise for some reason inkscape
     #       fucks up and you end up with a random graident instead of a fill O.o
+<<<<<<< Updated upstream
     dark_variant_colors = {
         'logo': 'ccb98f',
         'logo-flat': 'ccb98f',
         'logo-halloween': 'cdd7db',
         'logo-christmas': 'e3c300',
+||||||| Stash base
+    dark_variant_fill_styles = {
+        'logo': '#ccb98f',
+        'logo-flat': '#ccb98f',
+        'logo-halloween': '#cdd7db',
+        'logo-christmas': '#e3c300',
+        'logo-pride': '#f4b0c9',
+=======
+    dark_variant_fill_styles = {
+        'logo': '#ccb98f',
+        'logo-flat': '#ccb98f',
+        'logo-halloween': '#cdd7db',
+        'logo-christmas': '#e3c300',
+        'logo-pride': '#f4b0c9',
+        'logo-bundle': '#6fb564',
+>>>>>>> Stashed changes
     }
 
     if only is not None:

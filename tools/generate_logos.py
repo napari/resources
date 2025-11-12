@@ -41,6 +41,15 @@ def change_border_color(root, color):
         napari_text.set('style', new_text_style)
 
 
+def copy_defs(orig, dest):
+    """Copy definitions (filters etc) from one svg root to another."""
+    orig_defs = orig.find(".//svg:defs", namespaces=namespace)
+    dest_defs = dest.find(".//svg:defs", namespaces=namespace)
+
+    for el in orig_defs:
+        dest_defs.append(copy.deepcopy(el))
+
+
 def generate_variants(new_logo_path, border_color_dark):
     """Generate all logo variants based on a new logo.
 
@@ -50,36 +59,37 @@ def generate_variants(new_logo_path, border_color_dark):
     """
     from lxml import etree
 
-    logo_root = Path(__file__).parent.parent / 'logo' / 'templates'
-    logo_only = logo_root / 'logo.svg'
-    logo_text = logo_root / 'logo-text.svg'
-    logo_text_side = logo_root / 'logo-text-side.svg'
+    template_dir = Path(__file__).parent.parent / 'logo' / 'templates'
+    logo_only_template = template_dir / 'logo.svg'
+    logo_text_template = template_dir / 'logo-text.svg'
+    logo_text_side_template = template_dir / 'logo-text-side.svg'
 
     # extract the new logo and color
     new_logo_path = Path(new_logo_path)
     new_logo_root = etree.parse(new_logo_path).getroot()
     new_logo = new_logo_root.find(logo_xpath, namespaces=namespace)
-    border = new_logo_root.find(border_xpath, namespaces=namespace)
-    border_color_light = re.search(fill_color_regex, border.get('style')).group(1)
+    new_border = new_logo_root.find(border_xpath, namespaces=namespace)
+    border_color_light = re.search(fill_color_regex, new_border.get('style')).group(1)
     if not border_color_dark.startswith('#'):
         border_color_dark = '#' + border_color_dark
 
     colors = {'-light': border_color_light, '-dark': border_color_dark}
-    variants = {'': logo_only, '-text': logo_text, '-text-side': logo_text_side}
+    variants = {'': logo_only_template, '-text': logo_text_template, '-text-side': logo_text_side_template}
 
-    for variant, base_logo_path in variants.items():
+    for variant, template_path in variants.items():
         for theme, color in colors.items():
             # find the logo and replace it with the new one
-            base_logo_tree = etree.parse(base_logo_path)
-            base_logo_root = base_logo_tree.getroot()
-            base_logo = base_logo_root.find(logo_xpath, namespaces=namespace)
-            base_logo.getparent().replace(base_logo, copy.deepcopy(new_logo))
+            template_tree = etree.parse(template_path)
+            template_root = template_tree.getroot()
+            template_logo = template_root.find(logo_xpath, namespaces=namespace)
+            template_logo.getparent().replace(template_logo, copy.deepcopy(new_logo))
 
-            change_border_color(base_logo_root, color)
+            change_border_color(template_root, color)
+            copy_defs(new_logo_root, template_root)
 
             # generate outputs
-            output_svg = logo_root.parent / 'generated' / f'{new_logo_path.stem}{variant}{theme}.svg'
-            base_logo_tree.write(output_svg, pretty_print=True, xml_declaration=True, encoding="utf-8")
+            output_svg = template_dir.parent / 'generated' / f'{new_logo_path.stem}{variant}{theme}.svg'
+            template_tree.write(output_svg, pretty_print=True, xml_declaration=True, encoding="utf-8")
             print(f'Generated {output_svg.stem}.')
 
 

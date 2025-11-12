@@ -12,8 +12,8 @@ from pathlib import Path
 import re
 import copy
 
-fill_color_regex = r'fill:(#.*?);'
-stroke_color_regex = r'stroke:(#.*?);'
+fill_style_regex = r'fill:(.*?);'
+stroke_color_regex = r'stroke:(.*?);'
 logo_xpath = ".//*[@inkscape:label='logo']"
 napari_text_xpath = ".//*[@inkscape:label='napari']"
 border_xpath = ".//*[@inkscape:label='outer-border']"
@@ -22,7 +22,7 @@ namespace = {
     "inkscape": "http://www.inkscape.org/namespaces/inkscape"
 }
 
-def change_border_color(root, color):
+def change_border_style(root, color):
     # change the color of the border
     # this affects anything labeled as `outer-border` as well as children nodes
     base_logo_border = root.findall(border_xpath, namespaces=namespace)
@@ -30,14 +30,14 @@ def change_border_color(root, color):
         for element in (border, *border.getchildren()):
             if not element.get('style'):
                 continue
-            new_border_style = re.sub(fill_color_regex, f'fill:{color};', element.get('style'))
+            new_border_style = re.sub(fill_style_regex, f'fill:{color};', element.get('style'))
             new_border_style = re.sub(stroke_color_regex, f'stroke:{color};', new_border_style)
             element.set('style', new_border_style)
 
     # change the color of the text if present
     napari_text = root.find(napari_text_xpath, namespaces=namespace)
     if napari_text is not None:
-        new_text_style = re.sub(fill_color_regex, f'fill:{color};', napari_text.get('style'))
+        new_text_style = re.sub(fill_style_regex, f'fill:{color};', napari_text.get('style'))
         napari_text.set('style', new_text_style)
 
 
@@ -50,12 +50,12 @@ def copy_defs(orig, dest):
         dest_defs.append(copy.deepcopy(el))
 
 
-def generate_variants(new_logo_path, border_color_dark):
+def generate_variants(new_logo_path, border_fill_dark):
     """Generate all logo variants based on a new logo.
 
     NEW_LOGO_PATH: the path of the new logo to use to generate. Should be
         normally placed in the `variants` directory.
-    BORDER_COLOR_DARK: color (hex) to use for the border and text in the dark mode.
+    BORDER_FILL_DARK: fill style to use for the border and text in the dark mode.
     """
     from lxml import etree
 
@@ -69,22 +69,20 @@ def generate_variants(new_logo_path, border_color_dark):
     new_logo_root = etree.parse(new_logo_path).getroot()
     new_logo = new_logo_root.find(logo_xpath, namespaces=namespace)
     new_border = new_logo_root.find(border_xpath, namespaces=namespace)
-    border_color_light = re.search(fill_color_regex, new_border.get('style')).group(1)
-    if not border_color_dark.startswith('#'):
-        border_color_dark = '#' + border_color_dark
+    border_fill_light = re.search(fill_style_regex, new_border.get('style')).group(1)
 
-    colors = {'-light': border_color_light, '-dark': border_color_dark}
+    fill_styles = {'-light': border_fill_light, '-dark': border_fill_dark}
     variants = {'': logo_only_template, '-text': logo_text_template, '-text-side': logo_text_side_template}
 
     for variant, template_path in variants.items():
-        for theme, color in colors.items():
+        for theme, fill_style in fill_styles.items():
             # find the logo and replace it with the new one
             template_tree = etree.parse(template_path)
             template_root = template_tree.getroot()
             template_logo = template_root.find(logo_xpath, namespaces=namespace)
             template_logo.getparent().replace(template_logo, copy.deepcopy(new_logo))
 
-            change_border_color(template_root, color)
+            change_border_style(template_root, fill_style)
             copy_defs(new_logo_root, template_root)
 
             # generate outputs
@@ -100,19 +98,20 @@ def cli(only):
 
     # NOTE: these colors should be without alpha, otherwise for some reason inkscape
     #       fucks up and you end up with a random graident instead of a fill O.o
-    dark_variant_colors = {
-        'logo': 'ccb98f',
-        'logo-flat': 'ccb98f',
-        'logo-halloween': 'cdd7db',
-        'logo-christmas': 'e3c300',
+    dark_variant_fill_styles = {
+        'logo': '#ccb98f',
+        'logo-flat': '#ccb98f',
+        'logo-halloween': '#cdd7db',
+        'logo-christmas': '#e3c300',
+        'logo-pride': '#f4b0c9',
     }
 
     if only is not None:
-        dark_variant_colors = {only: dark_variant_colors.get(only)}
+        dark_variant_fill_styles = {only: dark_variant_fill_styles.get(only)}
 
-    for variant, dark_color in dark_variant_colors.items():
+    for variant, dark_fill in dark_variant_fill_styles.items():
         path = logo_variants / f'{variant}.svg'
-        generate_variants(path, dark_color)
+        generate_variants(path, dark_fill)
 
 
 if __name__ == '__main__':

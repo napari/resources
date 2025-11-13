@@ -107,7 +107,7 @@ def cli(only):
         'logo-flat': 'ccb98f',
         'logo-halloween': 'cdd7db',
         'logo-christmas': 'e3c300',
-        'logo-japan': '83be1e',
+        'logo-mochi': '83be1e',
     }
 
     if only is not None:

@@ -12,6 +12,8 @@ from pathlib import Path
 import re
 import copy
 
+from lxml import etree
+
 fill_color_regex = r'fill:(#.*?);'
 stroke_color_regex = r'stroke:(#.*?);'
 logo_xpath = ".//*[@inkscape:label='logo']"
@@ -57,12 +59,8 @@ def generate_variants(new_logo_path, border_color_dark):
         normally placed in the `variants` directory.
     BORDER_COLOR_DARK: color (hex) to use for the border and text in the dark mode.
     """
-    from lxml import etree
 
     template_dir = Path(__file__).parent.parent / 'logo' / 'templates'
-    logo_only_template = template_dir / 'logo.svg'
-    logo_text_template = template_dir / 'logo-text.svg'
-    logo_text_side_template = template_dir / 'logo-text-side.svg'
 
     # extract the new logo and color
     new_logo_path = Path(new_logo_path)
@@ -74,7 +72,10 @@ def generate_variants(new_logo_path, border_color_dark):
         border_color_dark = '#' + border_color_dark
 
     colors = {'-light': border_color_light, '-dark': border_color_dark}
-    variants = {'': logo_only_template, '-text': logo_text_template, '-text-side': logo_text_side_template}
+    variants = {
+        template_path.stem.removeprefix('logo'): template_path
+        for template_path in template_dir.glob('*.svg')
+    }
 
     for variant, template_path in variants.items():
         for theme, color in colors.items():
@@ -89,6 +90,7 @@ def generate_variants(new_logo_path, border_color_dark):
 
             # generate outputs
             output_svg = template_dir.parent / 'generated' / f'{new_logo_path.stem}{variant}{theme}.svg'
+            output_svg.parent.mkdir(parents=True, exist_ok=True)
             template_tree.write(output_svg, pretty_print=True, xml_declaration=True, encoding="utf-8")
             print(f'Generated {output_svg.stem}.')
 
@@ -101,7 +103,7 @@ def cli(only):
     # NOTE: these colors should be without alpha, otherwise for some reason inkscape
     #       fucks up and you end up with a random graident instead of a fill O.o
     dark_variant_colors = {
-        'logo': 'ccb98f',
+        'logo-gradient': 'ccb98f',
         'logo-flat': 'ccb98f',
         'logo-halloween': 'cdd7db',
         'logo-christmas': 'e3c300',

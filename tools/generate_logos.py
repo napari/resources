@@ -60,9 +60,6 @@ def generate_variants(new_logo_path, border_color_dark):
     from lxml import etree
 
     template_dir = Path(__file__).parent.parent / 'logo' / 'templates'
-    logo_only_template = template_dir / 'logo.svg'
-    logo_text_template = template_dir / 'logo-text.svg'
-    logo_text_side_template = template_dir / 'logo-text-side.svg'
 
     # extract the new logo and color
     new_logo_path = Path(new_logo_path)
@@ -74,7 +71,10 @@ def generate_variants(new_logo_path, border_color_dark):
         border_color_dark = '#' + border_color_dark
 
     colors = {'-light': border_color_light, '-dark': border_color_dark}
-    variants = {'': logo_only_template, '-text': logo_text_template, '-text-side': logo_text_side_template}
+    variants = {
+        template_path.stem.removeprefix('logo'): template_path
+        for template_path in template_dir.glob('*.svg')
+    }
 
     for variant, template_path in variants.items():
         for theme, color in colors.items():

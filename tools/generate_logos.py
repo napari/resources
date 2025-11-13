@@ -89,6 +89,7 @@ def generate_variants(new_logo_path, border_color_dark):
 
             # generate outputs
             output_svg = template_dir.parent / 'generated' / f'{new_logo_path.stem}{variant}{theme}.svg'
+            output_svg.parent.mkdir(parents=True, exist_ok=True)
             template_tree.write(output_svg, pretty_print=True, xml_declaration=True, encoding="utf-8")
             print(f'Generated {output_svg.stem}.')
 

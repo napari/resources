@@ -12,6 +12,8 @@ from pathlib import Path
 import re
 import copy
 
+from lxml import etree
+
 fill_color_regex = r'fill:(#.*?);'
 stroke_color_regex = r'stroke:(#.*?);'
 logo_xpath = ".//*[@inkscape:label='logo']"
@@ -57,7 +59,6 @@ def generate_variants(new_logo_path, border_color_dark):
         normally placed in the `variants` directory.
     BORDER_COLOR_DARK: color (hex) to use for the border and text in the dark mode.
     """
-    from lxml import etree
 
     template_dir = Path(__file__).parent.parent / 'logo' / 'templates'
 
@@ -102,7 +103,7 @@ def cli(only):
     # NOTE: these colors should be without alpha, otherwise for some reason inkscape
     #       fucks up and you end up with a random graident instead of a fill O.o
     dark_variant_colors = {
-        'logo': 'ccb98f',
+        'logo-gradient': 'ccb98f',
         'logo-flat': 'ccb98f',
         'logo-halloween': 'cdd7db',
         'logo-christmas': 'e3c300',

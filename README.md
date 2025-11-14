@@ -15,12 +15,8 @@ Then, by running
 uv run tools/generate_logos.py
 ```
 
-svgs for each logo combinations will be created and dumped in `generated`. To convert these to PNGs, install inkscape and run:
-
-```sh
-./tools/generate_logo_pngs.sh
-```
-
+svgs (and pngs if requested and inkscape is installed) for each logo combinations will be created and dumped in `generated`.
+By passing the names of specific templates, variants and themes via the relevant options, you can also generate only a subset of the possible combinations. Check out the `-h` for details.
 ## fonts
 
 The "napari" font `AlataPlus` is generated starting from [Alata](https://fonts.google.com/specimen/Alata), and adding missing glyphs from the [M_PLUS_1p](https://fonts.google.com/specimen/M+PLUS+1p). This is done running

@@ -13,5 +13,4 @@ uv run tools/generate_logos.py
 ```
 
 svgs (and pngs if requested and inkscape is installed) for each logo combinations will be created and dumped in `generated`.
-
-You can select only specific combinatiosn by passing the relevant options to the script (check out the `-h` for details).
+By passing the names of specific templates, variants and themes via the relevant options, you can also generate only a subset of the possible combinations. Check out the `-h` for details.

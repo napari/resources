@@ -4,6 +4,7 @@
 # dependencies = [
 #   "click",
 #   "lxml",
+#   "sh",
 # ]
 # ///
 
@@ -11,6 +12,7 @@ import click
 from pathlib import Path
 import re
 import copy
+import sh
 
 from lxml import etree
 
@@ -52,7 +54,7 @@ def copy_defs(orig, dest):
         dest_defs.append(copy.deepcopy(el))
 
 
-def generate_variants(new_logo_path, border_color_dark, templates=None, modes=None):
+def generate_variants(new_logo_path, border_color_dark, templates=None, modes=None, png=False):
     """Generate all logo variants based on a new logo.
 
     NEW_LOGO_PATH: the path of the new logo to use to generate. Should be
@@ -96,7 +98,10 @@ def generate_variants(new_logo_path, border_color_dark, templates=None, modes=No
             output_svg = template_dir.parent / 'generated' / f'{new_logo_path.stem}-{template}-{mode}.svg'
             output_svg.parent.mkdir(parents=True, exist_ok=True)
             template_tree.write(output_svg, pretty_print=True, xml_declaration=True, encoding="utf-8")
-            print(f'Generated {output_svg.stem}.')
+            if png:
+                sh.inkscape(output_svg, '-o', output_svg.with_suffix('.png'))
+            print(f'Generated {output_svg.stem}')
+
 
 
 @click.command(
@@ -105,7 +110,8 @@ def generate_variants(new_logo_path, border_color_dark, templates=None, modes=No
 @click.option('-v', '--variant', type=str, multiple=True)
 @click.option('-t', '--template', type=str, multiple=True)
 @click.option('-m', '--mode', type=str, multiple=True)
-def cli(variant, template, mode):
+@click.option('-p', '--png', is_flag=True)
+def cli(variant, template, mode, png):
     logo_variants = Path(__file__).parent.parent / 'logo' / 'variants'
 
     # NOTE: these colors should be without alpha, otherwise for some reason inkscape
@@ -121,7 +127,7 @@ def cli(variant, template, mode):
         if variant and variant_name not in variant:
             continue
         path = logo_variants / f'logo-{variant_name}.svg'
-        generate_variants(path, dark_color, template, mode)
+        generate_variants(path, dark_color, template, mode, png)
 
 
 if __name__ == '__main__':

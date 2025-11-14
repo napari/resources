@@ -12,8 +12,6 @@ Then, by running
 uv run tools/generate_logos.py
 ```
 
-svgs for each logo combinations will be created and dumped in `generated`. To convert these to PNGs, install inkscape and run:
+svgs (and pngs if requested and inkscape is installed) for each logo combinations will be created and dumped in `generated`.
 
-```sh
-./tools/generate_logo_pngs.sh
-```
+You can select only specific combinatiosn by passing the relevant options to the script (check out the `-h` for details).

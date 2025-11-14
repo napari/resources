@@ -16,6 +16,16 @@ import sh
 
 from lxml import etree
 
+# NOTE: these colors should be without alpha, otherwise for some reason inkscape
+#       fucks up and you end up with a random graident instead of a fill O.o
+DARK_VARIANT_COLORS = {
+    'gradient': 'ccb98f',
+    'flat': 'ccb98f',
+    'halloween': 'cdd7db',
+    'christmas': 'e3c300',
+}
+
+
 fill_color_regex = r'fill:(#.*?);'
 stroke_color_regex = r'stroke:(#.*?);'
 logo_xpath = ".//*[@inkscape:label='logo']"
@@ -24,6 +34,13 @@ border_xpath = ".//*[@inkscape:label='outer-border']"
 namespace = {
     "svg": "http://www.w3.org/2000/svg",
     "inkscape": "http://www.inkscape.org/namespaces/inkscape"
+}
+
+
+TEMPLATE_DIR = Path(__file__).parent.parent / 'logo' / 'templates'
+TEMPLATE_FILES = {
+    template_path.stem.removeprefix('logo-'): template_path
+    for template_path in TEMPLATE_DIR.glob('*.svg')
 }
 
 def change_border_color(root, color):
@@ -62,8 +79,6 @@ def generate_variants(new_logo_path, border_color_dark, templates=None, modes=No
     BORDER_COLOR_DARK: color (hex) to use for the border and text in the dark mode.
     """
 
-    template_dir = Path(__file__).parent.parent / 'logo' / 'templates'
-
     # extract the new logo and color
     new_logo_path = Path(new_logo_path)
     new_logo_root = etree.parse(new_logo_path).getroot()
@@ -74,12 +89,8 @@ def generate_variants(new_logo_path, border_color_dark, templates=None, modes=No
         border_color_dark = '#' + border_color_dark
 
     mode_colors = {'light': border_color_light, 'dark': border_color_dark}
-    template_files = {
-        template_path.stem.removeprefix('logo-'): template_path
-        for template_path in template_dir.glob('*.svg')
-    }
 
-    for template, template_path in template_files.items():
+    for template, template_path in TEMPLATE_FILES.items():
         if templates and template not in templates:
             continue
         for mode, color in mode_colors.items():
@@ -95,7 +106,7 @@ def generate_variants(new_logo_path, border_color_dark, templates=None, modes=No
             copy_defs(new_logo_root, template_root)
 
             # generate outputs
-            output_svg = template_dir.parent / 'generated' / f'{new_logo_path.stem}-{template}-{mode}.svg'
+            output_svg = TEMPLATE_DIR.parent / 'generated' / f'{new_logo_path.stem}-{template}-{mode}.svg'
             output_svg.parent.mkdir(parents=True, exist_ok=True)
             template_tree.write(output_svg, pretty_print=True, xml_declaration=True, encoding="utf-8")
             if png:
@@ -107,23 +118,18 @@ def generate_variants(new_logo_path, border_color_dark, templates=None, modes=No
 @click.command(
     context_settings={"help_option_names": ["-h", "--help"], "show_default": True},
 )
-@click.option('-v', '--variant', type=str, multiple=True)
-@click.option('-t', '--template', type=str, multiple=True)
-@click.option('-m', '--mode', type=str, multiple=True)
-@click.option('-p', '--png', is_flag=True)
+@click.option('-v', '--variant', type=click.Choice(DARK_VARIANT_COLORS), multiple=True)
+@click.option('-t', '--template', type=click.Choice(TEMPLATE_FILES), multiple=True)
+@click.option('-m', '--mode', type=click.Choice(('light', 'dark')), multiple=True)
+@click.option('-p', '--png', is_flag=True, help='Also generate as png.')
 def cli(variant, template, mode, png):
+    """Generate logos based on variants, template and theme.
+
+    Options may be passed more than once. An empty option means all.
+    """
     logo_variants = Path(__file__).parent.parent / 'logo' / 'variants'
 
-    # NOTE: these colors should be without alpha, otherwise for some reason inkscape
-    #       fucks up and you end up with a random graident instead of a fill O.o
-    dark_variant_colors = {
-        'gradient': 'ccb98f',
-        'flat': 'ccb98f',
-        'halloween': 'cdd7db',
-        'christmas': 'e3c300',
-    }
-
-    for variant_name, dark_color in dark_variant_colors.items():
+    for variant_name, dark_color in DARK_VARIANT_COLORS.items():
         if variant and variant_name not in variant:
             continue
         path = logo_variants / f'logo-{variant_name}.svg'

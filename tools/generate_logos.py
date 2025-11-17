@@ -23,6 +23,10 @@ DARK_VARIANT_COLORS = {
     'flat': 'ccb98f',
     'halloween': 'cdd7db',
     'christmas': 'e3c300',
+    'jedi': '00b6e1',
+    'sith': '00b6e1',
+    'pride': 'f4b0c9',
+    'mochi': '83be1e',
 }
 
 

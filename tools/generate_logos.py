@@ -26,6 +26,7 @@ DARK_VARIANT_COLORS = {
     'jedi': '00b6e1',
     'sith': '00b6e1',
     'pride': 'f4b0c9',
+    'mochi': '83be1e',
 }
 
 

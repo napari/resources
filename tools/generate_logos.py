@@ -25,7 +25,7 @@ DARK_VARIANT_COLORS = {
     'christmas': 'e3c300',
     'jedi': '00b6e1',
     'sith': '00b6e1',
-    'logo-pride': 'f4b0c9',
+    'pride': 'f4b0c9',
 }
 
 

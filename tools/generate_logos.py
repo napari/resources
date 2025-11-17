@@ -21,6 +21,7 @@ from lxml import etree
 DARK_VARIANT_COLORS = {
     'gradient': 'ccb98f',
     'flat': 'ccb98f',
+    'round': 'ccb98f',
     'halloween': 'cdd7db',
     'christmas': 'e3c300',
     'jedi': '00b6e1',

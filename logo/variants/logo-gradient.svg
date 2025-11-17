@@ -5,7 +5,7 @@
    viewBox="0 0 824 824"
    version="1.1"
    id="svg22"
-   sodipodi:docname="logo.svg"
+   sodipodi:docname="logo-gradient.svg"
    inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
    inkscape:export-filename="logo.png"
    inkscape:export-xdpi="96"
@@ -28,11 +28,11 @@
      inkscape:pagecheckerboard="false"
      inkscape:deskcolor="#d1d1d1"
      showguides="true"
-     inkscape:zoom="0.22627417"
-     inkscape:cx="539.16892"
-     inkscape:cy="830.85047"
-     inkscape:window-width="1278"
-     inkscape:window-height="783"
+     inkscape:zoom="0.11313709"
+     inkscape:cx="875.04464"
+     inkscape:cy="-66.291261"
+     inkscape:window-width="2249"
+     inkscape:window-height="1568"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
@@ -101,13 +101,13 @@
     </radialGradient>
     <linearGradient
        id="b"
-       x1="38.997208"
-       y1="33.821293"
-       x2="178.80855"
-       y2="173.79044"
+       x1="61.343052"
+       y1="27.19577"
+       x2="135.23416"
+       y2="177.1032"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(0.72185568,0,0,0.73037896,-0.88729692,-1.9750596)"
-       spreadMethod="repeat"
+       spreadMethod="reflect"
        xlink:href="#linearGradient5">
       <stop
          offset="0"
@@ -139,13 +139,14 @@
        inkscape:collect="always"
        xlink:href="#a"
        id="radialGradient1"
-       cx="82.724548"
-       cy="91.512787"
-       fx="82.724548"
-       fy="91.512787"
+       cx="80.220596"
+       cy="69.390892"
+       fx="80.220596"
+       fy="69.390892"
        r="476.82007"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.6971865,1.7192579,-1.3967033,1.3787727,42.399165,-213.88369)" />
+       gradientTransform="matrix(0.8983905,1.928322,-1.7790016,0.8288231,137.73912,-189.38161)"
+       spreadMethod="reflect" />
   </defs>
   <title
      id="title19">Artboard 1</title>

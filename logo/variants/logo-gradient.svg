@@ -28,10 +28,10 @@
      inkscape:pagecheckerboard="false"
      inkscape:deskcolor="#d1d1d1"
      showguides="true"
-     inkscape:zoom="0.32000001"
-     inkscape:cx="945.31246"
-     inkscape:cy="501.56248"
-     inkscape:window-width="1698"
+     inkscape:zoom="0.45254835"
+     inkscape:cx="719.26016"
+     inkscape:cy="365.70678"
+     inkscape:window-width="1540"
      inkscape:window-height="1408"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -80,7 +80,7 @@
          offset="1"
          stop-color="#bcb5d9"
          id="stop10"
-         style="stop-color:#aba0c4;stop-opacity:1;" />
+         style="stop-color:#bab3d1;stop-opacity:1;" />
     </radialGradient>
     <linearGradient
        id="b"
@@ -97,7 +97,7 @@
          id="stop2"
          style="stop-color:#426c7f;stop-opacity:1;" />
       <stop
-         offset="0.49713621"
+         offset="0.49367601"
          stop-color="#526a77"
          id="stop12"
          style="stop-color:#527d90;stop-opacity:1;" />
@@ -105,19 +105,19 @@
          offset="1"
          stop-color="#94d1d6"
          id="stop19"
-         style="stop-color:#5fa6c9;stop-opacity:1;" />
+         style="stop-color:#72b5d1;stop-opacity:1;" />
     </linearGradient>
     <radialGradient
        inkscape:collect="always"
        xlink:href="#a"
        id="radialGradient1"
-       cx="97.592361"
-       cy="-154.9863"
-       fx="97.592361"
-       fy="-154.9863"
+       cx="124.37255"
+       cy="-193.25917"
+       fx="124.37255"
+       fy="-193.25917"
        r="476.82007"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(-0.61813219,1.4592151,-1.3540466,-0.57358225,209.46159,-158.57533)"
+       gradientTransform="matrix(-0.58778896,1.4487093,-2.0536813,-0.83324607,97.079204,-193.35171)"
        spreadMethod="reflect" />
     <radialGradient
        inkscape:collect="always"
@@ -128,7 +128,7 @@
        fx="50.519199"
        fy="83.665291"
        r="51.052189"
-       gradientTransform="matrix(1.5322543,0.093994,-0.07217015,1.1764904,-20.850928,-19.392261)"
+       gradientTransform="matrix(1.6300632,0.21960867,-0.16740543,1.2425806,-17.824276,-31.267664)"
        gradientUnits="userSpaceOnUse" />
   </defs>
   <title

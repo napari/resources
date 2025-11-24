@@ -44,7 +44,7 @@ namespace = {
 
 TEMPLATE_DIR = Path(__file__).parent.parent / 'logo' / 'templates'
 TEMPLATE_FILES = {
-    template_path.stem.removeprefix('logo-'): template_path
+    template_path.stem: template_path
     for template_path in TEMPLATE_DIR.glob('*.svg')
 }
 
@@ -137,7 +137,7 @@ def cli(variant, template, mode, png):
     for variant_name, dark_color in DARK_VARIANT_COLORS.items():
         if variant and variant_name not in variant:
             continue
-        path = logo_variants / f'logo-{variant_name}.svg'
+        path = logo_variants / f'{variant_name}.svg'
         generate_variants(path, dark_color, template, mode, png)
 
 

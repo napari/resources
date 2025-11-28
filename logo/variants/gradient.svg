@@ -28,11 +28,11 @@
      inkscape:pagecheckerboard="false"
      inkscape:deskcolor="#d1d1d1"
      showguides="true"
-     inkscape:zoom="0.3404876"
-     inkscape:cx="694.5921"
-     inkscape:cy="1091.0823"
-     inkscape:window-width="1686"
-     inkscape:window-height="1568"
+     inkscape:zoom="0.48152218"
+     inkscape:cx="389.39016"
+     inkscape:cy="480.76705"
+     inkscape:window-width="1500"
+     inkscape:window-height="1408"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
@@ -58,14 +58,15 @@
       }
     </style>
     <radialGradient
-       id="a"
+       id="a-3"
        cx="103.55"
        cy="103.55"
        fx="14.832241"
        fy="15.612816"
        r="196.89"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(4.9444712,0,0,4.9444712,-2.9648209e-5,1.824029e-6)">
+       gradientTransform="matrix(4.9444712,0,0,4.9444712,-2.9648209e-5,1.824029e-6)"
+       inkscape:label="a">
       <stop
          offset="0"
          stop-color="#4b475b"
@@ -83,14 +84,15 @@
          style="stop-color:#bab3d1;stop-opacity:1;" />
     </radialGradient>
     <linearGradient
-       id="b"
+       id="b-1"
        x1="61.343052"
        y1="27.19577"
        x2="135.23416"
        y2="177.1032"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(0.72185568,0,0,0.73037896,-0.88729692,-1.9750596)"
-       spreadMethod="reflect">
+       spreadMethod="reflect"
+       inkscape:label="b">
       <stop
          offset="0"
          stop-color="#526a77"
@@ -109,19 +111,7 @@
     </linearGradient>
     <radialGradient
        inkscape:collect="always"
-       xlink:href="#a"
-       id="radialGradient1"
-       cx="124.37255"
-       cy="-193.25917"
-       fx="124.37255"
-       fy="-193.25917"
-       r="476.82007"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(-0.58778896,1.4487093,-2.0536813,-0.83324607,97.079204,-193.35171)"
-       spreadMethod="reflect" />
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#b"
+       xlink:href="#b-1"
        id="radialGradient2"
        cx="50.519199"
        cy="83.665291"
@@ -130,6 +120,18 @@
        r="51.052189"
        gradientTransform="matrix(1.6300632,0.21960867,-0.16740543,1.2425806,-17.824276,-31.267664)"
        gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#a-3"
+       id="radialGradient25"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.58778896,1.4487093,-2.0536813,-0.83324607,97.059234,-193.37168)"
+       cx="122.9096"
+       cy="-190.81799"
+       fx="122.9096"
+       fy="-190.81799"
+       r="476.82007"
+       spreadMethod="reflect" />
   </defs>
   <title
      id="title19">Artboard 1</title>
@@ -157,13 +159,13 @@
        inkscape:label="outer-border" />
     <rect
        class="b"
-       x="28.328728"
-       y="28.328728"
+       x="28.308777"
+       y="28.308777"
        width="767.38245"
        height="767.38245"
        rx="159.38022"
-       id="rect20"
-       style="fill:url(#radialGradient1);fill-opacity:1;stroke-width:0.202246"
+       id="rect25"
+       style="fill:url(#radialGradient25);fill-opacity:1;stroke-width:0.202246"
        inkscape:label="background" />
     <g
        id="g32"
@@ -186,7 +188,7 @@
          class="d"
          d="m 54.72507,22.124358 c 2.760141,0.635158 5.231918,2.167251 7.028693,4.356629 1.619214,1.996789 2.628499,5.082734 3.630524,11.421629 0.991649,6.499689 1.218288,13.274476 3.942749,19.350691 2.708374,5.591008 7.261044,8.546254 9.649929,10.078336 8.105718,5.135967 17.873934,5.768527 27.207145,5.148085 5.56923,-0.413887 7.77659,-1.248907 11.58137,-0.21057 6.54095,1.605737 7.86089,5.141098 9.22154,11.131187 0.42306,1.824178 2.34095,10.951367 0.21783,18.232495 -3.31528,10.6491 -12.74062,16.47062 -16.72945,18.44305 -8.71602,4.24735 -20.132397,5.3789 -28.223703,4.6979 -4.313912,-0.15576 -8.296713,-1.89126 -11.690278,-4.50184 -3.451697,-2.64837 -6.331645,-5.96796 -8.466386,-9.75885 C 59.107808,105.13608 56.122123,91.50793 49.773034,82.195011 46.179118,76.711111 40.85016,72.904696 35.977043,68.682198 32.443349,65.582971 29.020199,62.497607 27.074999,57.478401 24.317747,50.080564 27.920427,41.040705 30.400558,36.174486 30.791576,35.338977 38.823414,18.644315 54.72507,22.124358 Z"
          id="path22"
-         style="fill:url(#radialGradient2);fill-opacity:1;stroke-width:0.0369091"
+         style="fill:url(#radialGradient2);fill-opacity:1;stroke-width:0.0369091;stroke:none"
          sodipodi:nodetypes="cccccccccccccccccc" />
     </g>
   </g>

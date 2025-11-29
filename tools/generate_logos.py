@@ -46,6 +46,7 @@ TEMPLATE_FILES = {
     template_path.stem: template_path
     for template_path in TEMPLATE_DIR.glob('*.svg')
 }
+GENERATED_DIR = TEMPLATE_DIR.parent / 'generated'
 
 def change_border_color(root, color):
     # change the color of the border
@@ -110,7 +111,7 @@ def generate_variants(new_logo_path, border_color_dark, templates=None, modes=No
             copy_defs(new_logo_root, template_root)
 
             # generate outputs
-            output_svg = TEMPLATE_DIR.parent / 'generated' / f'{new_logo_path.stem}-{template}-{mode}.svg'
+            output_svg = GENERATED_DIR / f'{new_logo_path.stem}-{template}-{mode}.svg'
             output_svg.parent.mkdir(parents=True, exist_ok=True)
             template_tree.write(output_svg, pretty_print=True, xml_declaration=True, encoding="utf-8")
             if png:
@@ -125,8 +126,9 @@ def generate_variants(new_logo_path, border_color_dark, templates=None, modes=No
 @click.option('-v', '--variant', type=click.Choice(DARK_VARIANT_COLORS), multiple=True)
 @click.option('-t', '--template', type=click.Choice(TEMPLATE_FILES), multiple=True)
 @click.option('-m', '--mode', type=click.Choice(('light', 'dark')), multiple=True)
-@click.option('-p', '--png', is_flag=True, help='Also generate as png.')
-def cli(variant, template, mode, png):
+@click.option('-p', '--png', is_flag=True, help='Also generate as png (requires inkscape).')
+@click.option('--montage', is_flag=True, help='Generate a montage with all available pngs (requires imagemagick).')
+def cli(variant, template, mode, png, montage):
     """Generate logos based on variants, template and theme.
 
     Options may be passed more than once. An empty option means all.
@@ -138,6 +140,13 @@ def cli(variant, template, mode, png):
             continue
         path = logo_variants / f'{variant_name}.svg'
         generate_variants(path, dark_color, template, mode, png)
+
+    if montage:
+        sh.montage('*plain-dark.png', '-geometry', '+100+100', '-background', 'black', 'montage-dark.png', _cwd=GENERATED_DIR)
+        sh.montage('*plain-light.png', '-geometry', '+100+100', '-background', 'white', 'montage-light.png', _cwd=GENERATED_DIR)
+        sh.montage('montage-*.png', '-geometry', '+0+0', 'montage.png', _cwd=GENERATED_DIR)
+        (GENERATED_DIR / 'montage-dark.png').unlink()
+        (GENERATED_DIR / 'montage-light.png').unlink()
 
 
 if __name__ == '__main__':

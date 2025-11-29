@@ -54,7 +54,7 @@ jobs:
           path: logos
       - name: Archive generated logos
         run: |
-          tar -czfv generated-logos.tar.gz -C ./logos
+          tar vczf generated-logos.tar.gz ./logos
       - name: Create GitHub release
         uses: softprops/action-gh-release@6cbd405e2c4e67a21c47fa9e383d020e4e28b836 # v2.3.3
         with:

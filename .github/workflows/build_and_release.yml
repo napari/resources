@@ -4,8 +4,8 @@ on:
   push:
     tags:
       - "v*"
-    pull_requests:
-      types: [opened, synchronize, reopened]
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   build:
@@ -33,7 +33,7 @@ jobs:
       - name: Add artifact link to summary
         run: |
           echo "### Generated logos" >> $GITHUB_STEP_SUMMARY
-          echo "Download the generated logos here." >> $GITHUB_STEP_SUMMARY
+          echo "Download the generated logos below." >> $GITHUB_STEP_SUMMARY
 
 
   release:

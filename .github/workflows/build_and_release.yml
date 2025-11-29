@@ -7,6 +7,10 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,37 +24,40 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y inkscape
+          sudo apt-get install -y inkscape imagemagick
           pip install uv
-      - name: Generate logos
+      - name: Generate logos and montages
         run: |
-          uv run ./tools/generate_logos.py -p
-      - name: Upload artifacts to PR
+          uv run ./tools/generate_logos.py -p --montage
+      - name: Upload logos artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: generated-logos
-          path: ./logo/generated/*
-      - name: Add artifact link to summary
-        run: |
-          echo "### Generated logos" >> $GITHUB_STEP_SUMMARY
-          echo "Download the generated logos below." >> $GITHUB_STEP_SUMMARY
-
+          path: |
+            ./logo/generated/*
+            !./logo/generated/montage.png
+      - name: Upload montage artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: generated-montage
+          path: ./logo/generated/montage.png
 
   release:
-    permissions:
-      contents: write
     needs: build
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
-      - name: Download artifacts from build
+      - name: Download logos from build
         uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         with:
           name: generated-logos
           path: logos
+      - name: Archive generated logos
+        run: |
+          tar vczf generated-logos.tar.gz ./logos
       - name: Create GitHub release
         uses: softprops/action-gh-release@6cbd405e2c4e67a21c47fa9e383d020e4e28b836 # v2.3.3
         with:
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
-          files: logos/*
+          files: generated-logos.tar.gz

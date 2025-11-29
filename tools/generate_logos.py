@@ -144,7 +144,7 @@ def cli(variant, template, mode, png, montage):
     if montage:
         sh.montage('*plain-dark.png', '-geometry', '+100+100', '-background', 'black', 'montage-dark.png', _cwd=GENERATED_DIR)
         sh.montage('*plain-light.png', '-geometry', '+100+100', '-background', 'white', 'montage-light.png', _cwd=GENERATED_DIR)
-        sh.montage('montage-*.png', '-geometry', '+0+0', 'montage.png', _cwd=GENERATED_DIR)
+        sh.montage('montage-*.png', '-geometry', '+0+0', '-tile', '1x', 'montage.png', _cwd=GENERATED_DIR)
         (GENERATED_DIR / 'montage-dark.png').unlink()
         (GENERATED_DIR / 'montage-light.png').unlink()
 

@@ -36,8 +36,8 @@ Conjecture is allowed when clearly marked as such:
 
 - ✅ We believe that the napari project would benefit from these changes…
 
-You may use the napari logo in merchandise for personal or small group usage,
-as long as that use is not for fundraising.
+You may use the napari logo in swag (pens, pins, stickers, etc) for personal or
+small group usage, as long as that use is not for fundraising.
 
 ## logos
 

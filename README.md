@@ -14,7 +14,8 @@ logo.
 ### Usage guidelines
 
 You may use the napari logo to describe factual use of the software in your own
-projects. Examples:
+projects, for example in papers, figures, posters, conference talks, and
+project websites. Examples:
 
 - ✅ We explored the data in napari and came to the conclusion that…
 - ✅ We provide a reader for napari to visualize our novel data…

@@ -8,6 +8,7 @@
 
 
 from pathlib import Path
+import sys
 
 from fontTools.ttLib import TTFont
 from fontTools.pens.transformPen import TransformPen
@@ -80,6 +81,21 @@ for record in name_table.names:
     elif record.nameID == 5:        # Version string
         record.string = b"Version 1.0"
 
-outdir = fonts / family_name
-outdir.mkdir(parents=True, exist_ok=True)
-AlataPlus.save(outdir / f'{postscript_name}.ttf', reorderTables=True)
+
+output = fonts / family_name / f'{postscript_name}.ttf'
+if output.exists():
+    # check against existing output to not create identical font with simply
+    # different timestamps
+    OldAlataPlus = TTFont(output)
+    if (
+        OldAlataPlus['glyf'].compile(OldAlataPlus) == AlataPlus['glyf'].compile(AlataPlus)
+        and OldAlataPlus['hmtx'].compile(OldAlataPlus) == AlataPlus['hmtx'].compile(AlataPlus)
+    ):
+        print('The font seems to be unchanged; not writing it out!')
+        sys.exit()
+    else:
+        AlataPlus['head'].created = OldAlataPlus['head'].created
+
+output.parent.mkdir(parents=True, exist_ok=True)
+AlataPlus.save(output, reorderTables=True)
+print(f'The font was modified; written out to {output}')

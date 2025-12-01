@@ -39,24 +39,6 @@
      inkscape:current-layer="g22" />
   <defs
      id="defs19">
-    <style
-       id="style1">
-      .a {
-        fill: #06283d;
-      }
-
-      .b {
-        fill: url(#a);
-      }
-
-      .c {
-        fill: #a59678;
-      }
-
-      .d {
-        fill: url(#b);
-      }
-    </style>
     <radialGradient
        id="a-3"
        cx="103.55"

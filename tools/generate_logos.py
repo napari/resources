@@ -118,16 +118,18 @@ def generate_variants(new_logo_path, border_color_dark, templates=None, modes=No
             template_tree.write(output_svg, pretty_print=True, xml_declaration=True, encoding="utf-8")
             if png:
                 sh.inkscape(output_svg, '-o', output_svg.with_suffix('.png'))
-            if icons and template == 'plain':
-                # windows ico file is simple
-                sh.convert(output_svg, '-define', 'icon:auto-resize=256,64,48,32,16', output_svg.with_suffix('.ico'))
-                # we need to actually create all the png size variants for macos
-                tmp_icns_dir = GENERATED_DIR / 'icns'
-                tmp_icns_dir.mkdir(exist_ok=True)
-                for size in (16, 32, 128, 256, 512):
-                    sh.inkscape(output_svg, '-w', size, '-h', size, '-d', 77, '-o', tmp_icns_dir / f'{size}x{size}.png')
-                sh.png2icns(output_svg.with_suffix('.icns'), [str(p) for p in tmp_icns_dir.iterdir()])
-                shutil.rmtree(tmp_icns_dir)
+            if icons:
+                if template == 'plain':
+                    # windows ico file is simple
+                    sh.convert(output_svg, '-define', 'icon:auto-resize=256,64,48,32,16', output_svg.with_suffix('.ico'))
+                if template == 'padded':
+                    # macos: we need to actually create all the png size variants and pass them to png2icns
+                    tmp_icns_dir = GENERATED_DIR / 'icns'
+                    tmp_icns_dir.mkdir(exist_ok=True)
+                    for size in (16, 32, 128, 256, 512):
+                        sh.inkscape(output_svg, '-w', size, '-h', size, '-d', 77, '-o', tmp_icns_dir / f'{size}x{size}.png')
+                    sh.png2icns(output_svg.with_suffix('.icns'), [str(p) for p in tmp_icns_dir.iterdir()])
+                    shutil.rmtree(tmp_icns_dir)
             print(f'Generated {output_svg.stem}')
 
 

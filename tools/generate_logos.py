@@ -126,8 +126,6 @@ def generate_variants(new_logo_path, border_color_dark, templates=None, modes=No
                 tmp_icns_dir.mkdir(exist_ok=True)
                 for size in (16, 32, 128, 256, 512):
                     sh.inkscape(output_svg, '-w', size, '-h', size, '-d', 77, '-o', tmp_icns_dir / f'{size}x{size}.png')
-                    # for retina
-                    sh.inkscape(output_svg, '-w', size * 2, '-h', size * 2, '-d', 144, '-o', tmp_icns_dir / f'{size}x{size}@2x.png')
                 sh.png2icns(output_svg.with_suffix('.icns'), [str(p) for p in tmp_icns_dir.iterdir()])
                 shutil.rmtree(tmp_icns_dir)
             print(f'Generated {output_svg.stem}')

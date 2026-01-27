@@ -118,7 +118,7 @@ def generate_variants(new_logo_path, border_color_dark, templates=None, modes=No
             template_tree.write(output_svg, pretty_print=True, xml_declaration=True, encoding="utf-8")
             if png:
                 sh.inkscape(output_svg, '-o', output_svg.with_suffix('.png'))
-            if icons:
+            if icons and template == 'plain':
                 # windows ico file is simple
                 sh.convert(output_svg, '-define', 'icon:auto-resize=256,64,48,32,16', output_svg.with_suffix('.ico'))
                 # we need to actually create all the png size variants for macos

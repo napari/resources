@@ -120,14 +120,14 @@ def generate_variants(new_logo_path, border_color_dark, templates=None, modes=No
                 sh.inkscape(output_svg, '-o', output_svg.with_suffix('.png'))
             if icons:
                 # windows ico file is simple
-                sh.magick('convert', output_svg, '-define', 'icon:auto-resize=256,64,48,32,16', output_svg.with_suffix('.ico'))
+                sh.convert(output_svg, '-define', 'icon:auto-resize=256,64,48,32,16', output_svg.with_suffix('.ico'))
                 # we need to actually create all the png size variants for macos
                 tmp_icns_dir = GENERATED_DIR / 'icns'
                 tmp_icns_dir.mkdir(exist_ok=True)
                 for size in (16, 32, 128, 256, 512):
-                    sh.magick('convert', output_svg, '-resize', f'{size}x{size}', '-density', '72', tmp_icns_dir / f'{size}x{size}.png')
+                    sh.convert(output_svg, '-resize', f'{size}x{size}', '-density', '72', tmp_icns_dir / f'{size}x{size}.png')
                     # for retina
-                    sh.magick('convert', output_svg, '-resize', f'{size*2}x{size*2}', '-density', '144', tmp_icns_dir / f'{size}x{size}@2x.png')
+                    sh.convert(output_svg, '-resize', f'{size*2}x{size*2}', '-density', '144', tmp_icns_dir / f'{size}x{size}@2x.png')
                 sh.png2icns(output_svg.with_suffix('.icns'), [str(p) for p in tmp_icns_dir.iterdir()])
                 shutil.rmtree(tmp_icns_dir)
             print(f'Generated {output_svg.stem}')

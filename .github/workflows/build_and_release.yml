@@ -24,11 +24,11 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y inkscape imagemagick
+          sudo apt-get install -y inkscape imagemagick icnsutils
           pip install uv
       - name: Generate logos and montages
         run: |
-          uv run ./tools/generate_logos.py -p --montage
+          uv run ./tools/generate_logos.py -p -i --montage
       - name: Upload logos artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:

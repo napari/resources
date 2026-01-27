@@ -124,6 +124,7 @@ def generate_variants(new_logo_path, border_color_dark, templates=None, modes=No
                 # we need to actually create all the png size variants for macos
                 tmp_icns_dir = GENERATED_DIR / 'icns'
                 tmp_icns_dir.mkdir(exist_ok=True)
+                print(sh.file(output_svg))
                 for size in (16, 32, 128, 256, 512):
                     sh.convert(output_svg, '-resize', f'{size}x{size}', '-density', '72x72', tmp_icns_dir / f'{size}x{size}.png')
                     # for retina

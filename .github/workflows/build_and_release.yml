@@ -24,40 +24,63 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y inkscape imagemagick
+          sudo apt-get install -y inkscape imagemagick icnsutils
           pip install uv
       - name: Generate logos and montages
         run: |
-          uv run ./tools/generate_logos.py -p --montage
-      - name: Upload logos artifact
+          uv run ./tools/generate_logos.py -p -i --montage
+      - name: Upload logo pngs
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: generated-logos
+          name: logos-png
           path: |
-            ./logo/generated/*
+            ./logo/generated/*.png
             !./logo/generated/montage.png
-      - name: Upload montage artifact
+      - name: Upload logo svgs
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: generated-montage
+          name: logos-svg
+          path: |
+            ./logo/generated/*.svg
+      - name: Upload montage
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: montage
           path: ./logo/generated/montage.png
+      - name: Upload icons
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: icons
+          path: |
+            ./logo/generated/*-plain-*.png
+            ./logo/generated/*.ico
+            ./logo/generated/*.icns
 
   release:
     needs: build
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
-      - name: Download logos from build
+      - name: Download artifacts
         uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         with:
-          name: generated-logos
-          path: logos
-      - name: Archive generated logos
+          path: artifacts
+      - name: Archive artifacts
         run: |
-          tar vczf generated-logos.tar.gz ./logos
+          tar vczf logos-svg.tar.gz ./artifacts/logos-svg
+          tar vczf logos-png.tar.gz ./artifacts/logos-png
+          tar vczf icons.tar.gz ./artifacts/icons
+          cp ./artifacts/montage/montage.png .
       - name: Create GitHub release
         uses: softprops/action-gh-release@6cbd405e2c4e67a21c47fa9e383d020e4e28b836 # v2.3.3
         with:
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
-          files: generated-logos.tar.gz
+          body:
+            ## Logos
+            ![Logos montage](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/montage.png)
+          files: |
+            logos-svg.tar.gz
+            logos-png.tar.gz
+            icons.tar.gz
+            montage.png

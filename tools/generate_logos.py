@@ -13,6 +13,7 @@ from pathlib import Path
 import re
 import copy
 import sh
+import shutil
 
 from lxml import etree
 
@@ -77,7 +78,7 @@ def copy_defs(orig, dest):
         dest_defs.append(copy.deepcopy(el))
 
 
-def generate_variants(new_logo_path, border_color_dark, templates=None, modes=None, png=False):
+def generate_variants(new_logo_path, border_color_dark, templates=None, modes=None, png=False, icons=False):
     """Generate all logo variants based on a new logo.
 
     NEW_LOGO_PATH: the path of the new logo to use to generate. Should be
@@ -117,6 +118,18 @@ def generate_variants(new_logo_path, border_color_dark, templates=None, modes=No
             template_tree.write(output_svg, pretty_print=True, xml_declaration=True, encoding="utf-8")
             if png:
                 sh.inkscape(output_svg, '-o', output_svg.with_suffix('.png'))
+            if icons:
+                if template == 'plain':
+                    # windows ico file is simple
+                    sh.convert('-resize', '256x256', '-define', 'icon:auto-resize', '-colors', 256, '-background', 'none', output_svg, output_svg.with_suffix('.ico'))
+                if template == 'padded':
+                    # macos: we need to actually create all the png size variants and pass them to png2icns
+                    tmp_icns_dir = GENERATED_DIR / 'icns'
+                    tmp_icns_dir.mkdir(exist_ok=True)
+                    for size in (16, 32, 128, 256, 512, 1024):
+                        sh.inkscape(output_svg, '-w', size, '-h', size, '-d', 77, '-o', tmp_icns_dir / f'{size}x{size}.png')
+                    sh.png2icns(output_svg.with_suffix('.icns'), [str(p) for p in tmp_icns_dir.iterdir()])
+                    shutil.rmtree(tmp_icns_dir)
             print(f'Generated {output_svg.stem}')
 
 
@@ -128,8 +141,9 @@ def generate_variants(new_logo_path, border_color_dark, templates=None, modes=No
 @click.option('-t', '--template', type=click.Choice(TEMPLATE_FILES), multiple=True)
 @click.option('-m', '--mode', type=click.Choice(('light', 'dark')), multiple=True)
 @click.option('-p', '--png', is_flag=True, help='Also generate as png (requires inkscape).')
+@click.option('-i', '--icons', is_flag=True, help='Also generate icons (requires icnsutils).')
 @click.option('--montage', is_flag=True, help='Generate a montage with all available pngs (requires imagemagick).')
-def cli(variant, template, mode, png, montage):
+def cli(variant, template, mode, png, icons, montage):
     """Generate logos based on variants, template and theme.
 
     Options may be passed more than once. An empty option means all.
@@ -140,7 +154,7 @@ def cli(variant, template, mode, png, montage):
         if variant and variant_name not in variant:
             continue
         path = logo_variants / f'{variant_name}.svg'
-        generate_variants(path, dark_color, template, mode, png)
+        generate_variants(path, dark_color, template, mode, png, icons)
 
     if montage:
         sh.montage('*plain-dark.png', '-geometry', '+100+100', '-background', 'black', 'montage-dark.png', _cwd=GENERATED_DIR)

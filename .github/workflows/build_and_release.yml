@@ -70,12 +70,17 @@ jobs:
           tar vczf logos-svg.tar.gz ./artifacts/logos-svg
           tar vczf logos-png.tar.gz ./artifacts/logos-png
           tar vczf icons.tar.gz ./artifacts/icons
+          cp ./artifacts/montage/montage.png .
       - name: Create GitHub release
         uses: softprops/action-gh-release@6cbd405e2c4e67a21c47fa9e383d020e4e28b836 # v2.3.3
         with:
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
+          body:
+            ## Logos
+            ![Logos montage](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/montage.png)
           files: |
             logos-svg.tar.gz
             logos-png.tar.gz
             icons.tar.gz
+            montage.png

@@ -76,7 +76,7 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
-          body:
+          body: |
             ## Logos
             ![Logos montage](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/montage.png)
           files: |

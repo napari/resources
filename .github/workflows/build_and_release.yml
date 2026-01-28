@@ -29,18 +29,32 @@ jobs:
       - name: Generate logos and montages
         run: |
           uv run ./tools/generate_logos.py -p -i --montage
-      - name: Upload logos artifact
+      - name: Upload logo pngs
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: generated-logos
+          name: generated-logos-png
           path: |
-            ./logo/generated/*
+            ./logo/generated/*.png
             !./logo/generated/montage.png
-      - name: Upload montage artifact
+      - name: Upload logo svgs
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: generated-logos-svg
+          path: |
+            ./logo/generated/*.svg
+      - name: Upload montage
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: generated-montage
           path: ./logo/generated/montage.png
+      - name: Upload icons
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: generated-icons
+          path: |
+            ./logo/generated/*-plain-*.png
+            ./logo/generated/*.ico
+            ./logo/generated/*.icns
 
   release:
     needs: build

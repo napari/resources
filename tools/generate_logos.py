@@ -121,7 +121,7 @@ def generate_variants(new_logo_path, border_color_dark, templates=None, modes=No
             if icons:
                 if template == 'plain':
                     # windows ico file is simple
-                    sh.convert(output_svg, '-define', 'icon:auto-resize=256,64,48,32,16', output_svg.with_suffix('.ico'))
+                    sh.convert('-resize', '256x256', '-define', 'icon:auto-resize', '-colors', 256, '-background', 'none', output_svg, output_svg.with_suffix('.ico'))
                 if template == 'padded':
                     # macos: we need to actually create all the png size variants and pass them to png2icns
                     tmp_icns_dir = GENERATED_DIR / 'icns'

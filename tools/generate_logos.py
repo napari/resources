@@ -29,6 +29,7 @@ DARK_VARIANT_COLORS = {
     'sith': '00b6e1',
     'pride': 'f4b0c9',
     'mochi': '83be1e',
+    'bundle': '6fb564',
 }
 
 

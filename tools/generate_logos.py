@@ -20,16 +20,17 @@ from lxml import etree
 # NOTE: these colors should be without alpha, otherwise for some reason inkscape
 #       fucks up and you end up with a random graident instead of a fill O.o
 DARK_VARIANT_COLORS = {
-    'gradient': 'ccb98f',
-    'flat': 'ccb98f',
-    'round': 'ccb98f',
-    'halloween': 'cdd7db',
     'christmas': 'e3c300',
+    'flat': 'ccb98f',
+    'gradient': 'ccb98f',
+    'halloween': 'cdd7db',
     'jedi': '00b6e1',
-    'sith': '00b6e1',
-    'pride': 'f4b0c9',
     'mochi': '83be1e',
     'pierogi': 'dd0c39',
+    'pride': 'f4b0c9',
+    'round': 'ccb98f',
+    'sith': '00b6e1',
+    'workshop': 'ccb98f',
 }
 
 

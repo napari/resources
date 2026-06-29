@@ -30,6 +30,7 @@ DARK_VARIANT_COLORS = {
     'pride': 'f4b0c9',
     'mochi': '83be1e',
     'workshop': 'ccb98f',
+    'outline': 'ffffff',
 }
 
 

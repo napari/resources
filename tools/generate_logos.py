@@ -32,6 +32,7 @@ DARK_VARIANT_COLORS = {
     'sith': '00b6e1',
     'workshop': 'ccb98f',
     'outline': 'ffffff',
+    'filled': 'ffffff',
 }
 
 

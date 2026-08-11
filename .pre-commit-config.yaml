@@ -14,16 +14,10 @@ repos:
     stages: [manual]
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v6.0.0
-  # .py files are skipped cause already checked by other hooks
   hooks:
-  - id: check-yaml
-  - id: check-toml
   - id: check-merge-conflict
     exclude: .*\.py
   - id: end-of-file-fixer
     exclude: .*\.py
-  - id: trailing-whitespace
-    # trailing whitespace has meaning in markdown https://www.markdownguide.org/hacks/#indent-tab
-    exclude: .*\.py|.*\.md
   - id: mixed-line-ending
     exclude: .*\.py

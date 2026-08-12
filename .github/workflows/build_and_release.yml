@@ -79,11 +79,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y inkscape imagemagick icnsutils
           uv sync --no-dev --group test
-          source .venv/bin/activate
 
       - name: Generate logos and montages
         run: |
-          python -m napari_resources.generate_logos ./generated -p -i --montage
+          uv run python -m napari_resources.generate_logos ./generated -p -i --montage
 
       - name: Upload logo pngs
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

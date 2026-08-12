@@ -82,6 +82,7 @@ jobs:
 
       - name: Generate logos and montages
         run: |
+          mkdir ./generated
           uv run python -m napari_resources.generate_logos ./generated -p -i --montage
 
       - name: Upload logo pngs

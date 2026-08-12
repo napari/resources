@@ -88,11 +88,9 @@ if output.exists():
     # check against existing output to not create identical font with simply
     # different timestamps
     OldAlataPlus = TTFont(output)
-    if OldAlataPlus["glyf"].compile(OldAlataPlus) == AlataPlus["glyf"].compile(
-        AlataPlus
-    ) and OldAlataPlus["hmtx"].compile(OldAlataPlus) == AlataPlus["hmtx"].compile(
-        AlataPlus
-    ):
+    if OldAlataPlus["glyf"].compile(OldAlataPlus) == AlataPlus["glyf"].compile(AlataPlus) and OldAlataPlus[
+        "hmtx"
+    ].compile(OldAlataPlus) == AlataPlus["hmtx"].compile(AlataPlus):
         print("The font seems to be unchanged; not writing it out!")
         sys.exit()
     else:

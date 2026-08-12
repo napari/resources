@@ -138,6 +138,10 @@ jobs:
           name: logos-svg
           path: ./src/napari-resources/resources/logos/generated/
 
+      # NOTE: the font is not explicitly added here because it doesn
+      #       really need to be generated every time. It is however manually
+      #       added already to the wheel.
+
       - name: Build and inspect package
         uses: hynek/build-and-inspect-python-package@v2
 

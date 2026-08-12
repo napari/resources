@@ -10,8 +10,7 @@ source = "vcs"
 # read more about configuring hatch at:
 # https://hatch.pypa.io/latest/config/build/
 [tool.hatch.build.targets.wheel]
-only-include = ["src"]
-sources = ["src"]
+packages = ["src/napari_resources"]
 
 # https://peps.python.org/pep-0621/
 [project]

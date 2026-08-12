@@ -50,8 +50,8 @@ namespace = {
 }
 
 
-TEMPLATE_DIR = resources.files("napari-resources.resources.logo.templates")
-VARIANT_DIR = resources.files("napari-resources.resources.logo.variants")
+TEMPLATE_DIR = resources.files("napari-resources.resources.logos.templates")
+VARIANT_DIR = resources.files("napari-resources.resources.logos.variants")
 
 TEMPLATE_FILES = {
     template_path.stem: template_path

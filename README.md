@@ -49,11 +49,24 @@ Logos are generated programmatically based on the content of the `variants` dire
 Then, by running
 
 ```sh
-python -m napari-resources.generate_logos
+python -m napari-resources.generate_logos <dest_dir>
 ```
 
-svgs (and pngs if requested and inkscape is installed) for each logo combinations will be created and dumped in `generated`.
+svgs (and pngs if requested and inkscape is installed) for each logo combinations will be created and dumped in `dest_dir`.
 By passing the names of specific templates, variants and themes via the relevant options, you can also generate only a subset of the possible combinations. Check out the `-h` for details.
+
+You can also pass custom files to both `variant` and `templates` and a custom color to `mode` to quickly generate new versions without adding them explicitly to the package.
+
+### as a library
+
+This package can be installed from `pypi` and used a library:
+
+```py
+from importlib import resources
+
+resources.path('napari-resources.resources.logos.generated', 'gradient-plain-dark.svg')
+```
+
 ## fonts
 
 The "napari" font `AlataPlus` is generated starting from [Alata](https://fonts.google.com/specimen/Alata), and adding missing glyphs from the [M_PLUS_1p](https://fonts.google.com/specimen/M+PLUS+1p). This is done running

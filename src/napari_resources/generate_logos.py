@@ -17,7 +17,6 @@ from importlib import resources
 from itertools import product
 from pathlib import Path
 
-import click
 import sh
 from lxml import etree
 
@@ -182,46 +181,6 @@ def generate_single_logo(variant, template, mode, output_dir, png=False, icons=F
     return output_svg
 
 
-@click.command(
-    context_settings={"help_option_names": ["-h", "--help"], "show_default": True},
-)
-@click.argument(
-    "output_dir",
-    type=click.Path(exists=True, file_okay=False),
-)
-@click.option(
-    "-v",
-    "--variant",
-    "selected_variants",
-    type=str,
-    multiple=True,
-    help=f"Logo variant to use. Can be either a custom svg path, or one of: {set(VARIANT_FILES)}",
-)
-@click.option(
-    "-t",
-    "--template",
-    "selected_templates",
-    type=str,
-    multiple=True,
-    help=f"Logo template to use. Can be either a custom svg path, or one of: {set(TEMPLATE_FILES)}",
-)
-@click.option(
-    "-m",
-    "--mode",
-    "selected_modes",
-    type=str,
-    multiple=True,
-    help='Logo mode to generate. Can be either "light" (uses variant base color),'
-    '"dark" (must be in the hardcoded mapping), or a custom hex color code (e.g: #a0a0a0)',
-)
-@click.option("-p", "--png", is_flag=True, help="Also generate as png (requires inkscape).")
-@click.option("-i", "--icons", is_flag=True, help="Also generate icons (requires icnsutils).")
-@click.option(
-    "--montage",
-    is_flag=True,
-    help="Generate a montage with all available pngs (requires imagemagick).",
-)
-@click.option("-q", "--quiet", is_flag=True, help="Do not print progress.")
 def generate_logos(
     output_dir,
     selected_variants=(),
@@ -287,4 +246,52 @@ def generate_logos(
 
 
 if __name__ == "__main__":
-    generate_logos()
+    import click
+
+    @click.command(
+        context_settings={"help_option_names": ["-h", "--help"], "show_default": True},
+    )
+    @click.argument(
+        "output_dir",
+        type=click.Path(exists=True, file_okay=False),
+    )
+    @click.option(
+        "-v",
+        "--variant",
+        "selected_variants",
+        type=str,
+        multiple=True,
+        help=f"Logo variant to use. Can be either a custom svg path, or one of: {set(VARIANT_FILES)}",
+    )
+    @click.option(
+        "-t",
+        "--template",
+        "selected_templates",
+        type=str,
+        multiple=True,
+        help=f"Logo template to use. Can be either a custom svg path, or one of: {set(TEMPLATE_FILES)}",
+    )
+    @click.option(
+        "-m",
+        "--mode",
+        "selected_modes",
+        type=str,
+        multiple=True,
+        help='Logo mode to generate. Can be either "light" (uses variant base color),'
+        '"dark" (must be in the hardcoded mapping), or a custom hex color code (e.g: #a0a0a0)',
+    )
+    @click.option("-p", "--png", is_flag=True, help="Also generate as png (requires inkscape).")
+    @click.option("-i", "--icons", is_flag=True, help="Also generate icons (requires icnsutils).")
+    @click.option(
+        "--montage",
+        is_flag=True,
+        help="Generate a montage with all available pngs (requires imagemagick).",
+    )
+    @click.option("-q", "--quiet", is_flag=True, help="Do not print progress.")
+    def cli(**kwargs):
+        """."""
+        generate_logos(**kwargs)
+
+    cli.__doc__ = generate_logos.__doc__
+
+    cli()

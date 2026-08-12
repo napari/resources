@@ -44,17 +44,8 @@ dependencies = ['click', 'sh', 'lxml', 'fontTools']
 # name = ["dependency"]
 
 [project.urls]
-homepage = "https://github.com/napari/napari-resources/napari-resources"
-repository = "https://github.com/napari/napari-resources/napari-resources"
-
-# Entry points
-# https://peps.python.org/pep-0621/#entry-points
-# same as console_scripts entry point
-# [project.scripts]
-# napari-resources-cli = "napari_resources:main_cli"
-
-# [project.entry-points."some.group"]
-# tomatoes = "napari_resources:main_tomatoes"
+homepage = "https://github.com/napari/napari-resources"
+repository = "https://github.com/napari/napari-resources"
 
 # https://peps.python.org/pep-0735/
 # setup with `uv sync` or `pip install -e . --group dev`

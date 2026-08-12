@@ -188,8 +188,6 @@ def generate_single_logo(variant, template, mode, output_dir, png=False, icons=F
 @click.argument(
     "output_dir",
     type=click.Path(exists=True, file_okay=False),
-    required=False,
-    default=".",
 )
 @click.option(
     "-v",
@@ -225,7 +223,7 @@ def generate_single_logo(variant, template, mode, output_dir, png=False, icons=F
 )
 @click.option("-q", "--quiet", is_flag=True, help="Do not print progress.")
 def generate_logos(
-    output_dir=".",
+    output_dir,
     selected_variants=(),
     selected_templates=(),
     selected_modes=(),

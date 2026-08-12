@@ -49,7 +49,7 @@ Logos are generated programmatically based on the content of the `variants` dire
 Then, by running
 
 ```sh
-uv run tools/generate_logos.py
+python -m napari-resources.generate_logos
 ```
 
 svgs (and pngs if requested and inkscape is installed) for each logo combinations will be created and dumped in `generated`.

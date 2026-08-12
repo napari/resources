@@ -66,20 +66,6 @@ jobs:
       - name: Coverage
         uses: codecov/codecov-action@v5
 
-  build-and-inspect-package:
-    name: Build & inspect package
-    needs: test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-
-      - name: Build and inspect package
-        uses: hynek/build-and-inspect-python-package@v2
-
   build_assets:
     name: Build assets for release
     runs-on: ubuntu-latest
@@ -98,40 +84,62 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y inkscape imagemagick icnsutils
           pip install uv
+          uv pip install .
 
       - name: Generate logos and montages
         run: |
-          uv run ./tools/generate_logos.py -p -i --montage
+          python -m napari-resources.generate_logos ./generated -p -i --montage
 
       - name: Upload logo pngs
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: logos-png
           path: |
-            ./logo/generated/*.png
-            !./logo/generated/montage.png
+            ./generated/*.png
+            !/generated/montage.png
 
       - name: Upload logo svgs
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: logos-svg
           path: |
-            ./logo/generated/*.svg
+            ./generated/*.svg
 
       - name: Upload montage
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: montage
-          path: ./logo/generated/montage.png
+          path: ./generated/montage.png
 
       - name: Upload icons
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: icons
           path: |
-            ./logo/generated/*-plain-*.png
-            ./logo/generated/*.ico
-            ./logo/generated/*.icns
+            ./generated/*-plain-*.png
+            ./generated/*.ico
+            ./generated/*.icns
+
+  build-and-inspect-package:
+    name: Build & inspect package
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      # this step adds the generated logos to the python wheel!
+      - name: Download generated logos svgs
+        uses: actions/download-artifact@v5
+        with:
+          name: logos-svg
+          path: ./src/napari-resources/resources/logos/generated/
+
+      - name: Build and inspect package
+        uses: hynek/build-and-inspect-python-package@v2
 
   upload-to-pypi:
     name: Upload package to PyPI

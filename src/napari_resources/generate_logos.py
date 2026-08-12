@@ -22,18 +22,18 @@ from lxml import etree
 # NOTE: these colors should be without alpha, otherwise for some reason inkscape
 #       fucks up and you end up with a random graident instead of a fill O.o
 DARK_VARIANT_COLORS = {
-    "christmas": "e3c300",
-    "flat": "ccb98f",
-    "gradient": "ccb98f",
-    "halloween": "cdd7db",
-    "jedi": "00b6e1",
-    "mochi": "83be1e",
-    "pierogi": "dd0c39",
-    "pride": "f4b0c9",
-    "round": "ccb98f",
-    "sith": "00b6e1",
-    "workshop": "ccb98f",
-    "outline": "ffffff",
+    "christmas": "#e3c300",
+    "flat": "#ccb98f",
+    "gradient": "#ccb98f",
+    "halloween": "#cdd7db",
+    "jedi": "#00b6e1",
+    "mochi": "#83be1e",
+    "pierogi": "#dd0c39",
+    "pride": "#f4b0c9",
+    "round": "#ccb98f",
+    "sith": "#00b6e1",
+    "workshop": "#ccb98f",
+    "outline": "#ffffff",
 }
 
 
@@ -52,12 +52,12 @@ TEMPLATE_DIR = resources.files("napari_resources.resources.logos.templates")
 VARIANT_DIR = resources.files("napari_resources.resources.logos.variants")
 
 TEMPLATE_FILES = {
-    template_path.stem: template_path
-    for template_path in TEMPLATE_DIR.iterdir()  # type: ignore
+    template_path.stem: template_path  # type: ignore
+    for template_path in TEMPLATE_DIR.iterdir()
 }
 VARIANT_FILES = {
-    variant_path.stem: variant_path
-    for variant_path in VARIANT_DIR.iterdir()  # type: ignore
+    variant_path.stem: variant_path  # type: ignore
+    for variant_path in VARIANT_DIR.iterdir()
 }
 
 

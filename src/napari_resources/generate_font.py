@@ -17,7 +17,7 @@ from fontTools.pens.transformPen import TransformPen
 from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.ttLib import TTFont
 
-fonts = resources.files("napari-resources.resources.fonts")
+fonts = resources.files("napari_resources.resources.fonts")
 
 
 @click.command(

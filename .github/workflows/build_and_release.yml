@@ -79,6 +79,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y inkscape imagemagick icnsutils
           uv sync --no-dev --group test
+          source .venv/bin/activate
 
       - name: Generate logos and montages
         run: |
@@ -118,7 +119,6 @@ jobs:
     name: Build & inspect package
     needs:
       - build_assets
-      - test
     runs-on: ubuntu-latest
 
     steps:

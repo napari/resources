@@ -63,6 +63,7 @@ jobs:
   build_assets:
     name: Build assets for release
     runs-on: ubuntu-latest
+    needs: test
 
     steps:
       - name: Checkout repository
@@ -116,7 +117,9 @@ jobs:
 
   build-and-inspect-package:
     name: Build & inspect package
-    needs: test
+    needs:
+      - build_assets
+      - test
     runs-on: ubuntu-latest
 
     steps:

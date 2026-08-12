@@ -128,17 +128,6 @@ exclude_lines = [
 [tool.coverage.run]
 source = ["napari_resources"]
 
-# https://github.com/mgedmin/check-manifest#configuration
-# add files that you want check-manifest to explicitly ignore here
-# (files that are in the repo but shouldn't go in the package)
-[tool.check-manifest]
-ignore = [
-    ".pre-commit-config.yaml",
-    ".ruff_cache/**/*",
-    "tests/**/*",
-    "uv.lock",
-]
-
 # https://github.com/crate-ci/typos/blob/master/docs/reference.md
 [tool.typos.default]
 extend-ignore-identifiers-re = []

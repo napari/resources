@@ -82,7 +82,7 @@ jobs:
 
       - name: Generate logos and montages
         run: |
-          python -m napari-resources.generate_logos ./generated -p -i --montage
+          python -m napari_resources.generate_logos ./generated -p -i --montage
 
       - name: Upload logo pngs
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -132,7 +132,7 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: logos-svg
-          path: ./src/napari-resources/resources/logos/generated/
+          path: ./src/napari_resources/resources/logos/generated/
 
       # NOTE: the font is not explicitly added here because it doesn
       #       really need to be generated every time. It is however manually

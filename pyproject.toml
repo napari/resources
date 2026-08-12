@@ -36,7 +36,6 @@ classifiers = [
 # add your package dependencies here
 dependencies = [
     'click',
-    'sh<2.4.0',  # latest is not supported in windows
     'lxml',
     'fontTools'
 ]

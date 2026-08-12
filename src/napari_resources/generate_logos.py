@@ -4,7 +4,6 @@
 # dependencies = [
 #   "click",
 #   "lxml",
-#   "sh",
 # ]
 # ///
 
@@ -13,11 +12,11 @@
 import copy
 import re
 import shutil
+import subprocess
 from importlib import resources
 from itertools import product
 from pathlib import Path
 
-import sh
 from lxml import etree
 
 # NOTE: these colors should be without alpha, otherwise for some reason inkscape
@@ -139,21 +138,30 @@ def generate_single_logo(variant, template, mode, output_dir, png=False, icons=F
     output_svg.parent.mkdir(parents=True, exist_ok=True)
     new_tree.write(output_svg, pretty_print=True, xml_declaration=True, encoding="utf-8")
     if png:
-        sh.inkscape(output_svg, "-o", output_svg.with_suffix(".png"))
+        subprocess.run(
+            ["inkscape", output_svg, "-o", output_svg.with_suffix(".png")],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
     if icons:
         if template == "plain":
             # windows ico file is simple
-            sh.convert(
-                "-resize",
-                "256x256",
-                "-define",
-                "icon:auto-resize",
-                "-colors",
-                256,
-                "-background",
-                "none",
-                output_svg,
-                output_svg.with_suffix(".ico"),
+            subprocess.run(
+                [
+                    "convert",
+                    "-resize",
+                    "256x256",
+                    "-define",
+                    "icon:auto-resize",
+                    "-colors",
+                    str(256),
+                    "-background",
+                    "none",
+                    output_svg,
+                    output_svg.with_suffix(".ico"),
+                ],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
             )
         if template == "padded":
             # macos: we need to actually create all the png size variants
@@ -161,20 +169,30 @@ def generate_single_logo(variant, template, mode, output_dir, png=False, icons=F
             tmp_icns_dir = output_dir / "icns"
             tmp_icns_dir.mkdir(exist_ok=True)
             for size in (16, 32, 128, 256, 512, 1024):
-                sh.inkscape(
-                    output_svg,
-                    "-w",
-                    size,
-                    "-h",
-                    size,
-                    "-d",
-                    77,
-                    "-o",
-                    tmp_icns_dir / f"{size}x{size}.png",
+                subprocess.run(
+                    [
+                        "inkscape",
+                        output_svg,
+                        "-w",
+                        str(size),
+                        "-h",
+                        str(size),
+                        "-d",
+                        str(77),
+                        "-o",
+                        tmp_icns_dir / f"{size}x{size}.png",
+                    ],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
                 )
-            sh.png2icns(
-                output_svg.with_suffix(".icns"),
-                [str(p) for p in tmp_icns_dir.iterdir()],
+            subprocess.run(
+                [
+                    "png2icns",
+                    output_svg.with_suffix(".icns"),
+                    *[str(p) for p in tmp_icns_dir.iterdir()],
+                ],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
             )
             shutil.rmtree(tmp_icns_dir)
 
@@ -214,32 +232,23 @@ def generate_logos(
             print(f"Generated {generated_svg.stem}")
 
     if montage:
-        sh.montage(
-            "*plain-dark.png",
-            "-geometry",
-            "+100+100",
-            "-background",
-            "black",
-            "montage-dark.png",
-            _cwd=str(output_dir),
+        subprocess.run(
+            ["montage", "*plain-dark.png", "-geometry", "+100+100", "-background", "black", "montage-dark.png"],
+            cwd=str(output_dir),
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
         )
-        sh.montage(
-            "*plain-light.png",
-            "-geometry",
-            "+100+100",
-            "-background",
-            "white",
-            "montage-light.png",
-            _cwd=str(output_dir),
+        subprocess.run(
+            ["montage", "*plain-light.png", "-geometry", "+100+100", "-background", "white", "montage-light.png"],
+            cwd=str(output_dir),
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
         )
-        sh.montage(
-            "montage-*.png",
-            "-geometry",
-            "+0+0",
-            "-tile",
-            "1x",
-            "montage.png",
-            _cwd=str(output_dir),
+        subprocess.run(
+            ["montage", "montage-*.png", "-geometry", "+0+0", "-tile", "1x", "montage.png"],
+            cwd=str(output_dir),
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
         )
         (output_dir / "montage-dark.png").unlink()
         (output_dir / "montage-light.png").unlink()

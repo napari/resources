@@ -1,4 +1,4 @@
-"""Custom build hooks for generating logo assets during the wheel build."""
+"""Custom build hooks for generating logo assets during the package build."""
 
 from __future__ import annotations
 
@@ -13,11 +13,11 @@ GENERATED_DIR = SRC_DIR / "napari_resources" / "resources" / "logos" / "generate
 
 
 class CustomBuildHook(BuildHookInterface):
-    """Regenerate the logo SVGs before building the wheel."""
+    """Regenerate the logo SVGs before building the package."""
 
     def initialize(self, version: str, build_data: dict) -> None:
         """Generate all SVGs."""
-        if self.target_name != "wheel":
+        if self.target_name not in {"wheel", "editable", "sdist"}:
             return
 
         sys.path.insert(0, str(SRC_DIR))

@@ -55,6 +55,10 @@ python -m napari_resources.generate_logos <dest_dir>
 svgs (and pngs if requested and inkscape is installed) for each logo combinations will be created and dumped in `dest_dir`.
 By passing the names of specific templates, variants and themes via the relevant options, you can also generate only a subset of the possible combinations. Check out the `-h` for details.
 
+```{note}
+The SVGs shipped in the wheel are regenerated automatically at build time (see `hatch_build.py`), so the `generated` directory is not committed and building the package anywhere produces up-to-date logos.
+```
+
 You can also pass custom files to both `variant` and `templates` and a custom color to `mode` to quickly generate new versions without adding them explicitly to the package.
 
 ### as a library

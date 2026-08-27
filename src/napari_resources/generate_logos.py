@@ -140,6 +140,7 @@ def generate_single_logo(variant, template, mode, output_dir, png=False, icons=F
     if png:
         subprocess.run(
             ["inkscape", output_svg, "-o", output_svg.with_suffix(".png")],
+            check=True,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
@@ -160,6 +161,7 @@ def generate_single_logo(variant, template, mode, output_dir, png=False, icons=F
                     output_svg,
                     output_svg.with_suffix(".ico"),
                 ],
+                check=True,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
             )
@@ -182,6 +184,7 @@ def generate_single_logo(variant, template, mode, output_dir, png=False, icons=F
                         "-o",
                         tmp_icns_dir / f"{size}x{size}.png",
                     ],
+                    check=True,
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                 )
@@ -191,6 +194,7 @@ def generate_single_logo(variant, template, mode, output_dir, png=False, icons=F
                     output_svg.with_suffix(".icns"),
                     *[str(p) for p in tmp_icns_dir.iterdir()],
                 ],
+                check=True,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
             )
@@ -235,18 +239,21 @@ def generate_logos(
         subprocess.run(
             ["montage", "*plain-dark.png", "-geometry", "+100+100", "-background", "black", "montage-dark.png"],
             cwd=str(output_dir),
+            check=True,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
         subprocess.run(
             ["montage", "*plain-light.png", "-geometry", "+100+100", "-background", "white", "montage-light.png"],
             cwd=str(output_dir),
+            check=True,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
         subprocess.run(
             ["montage", "montage-*.png", "-geometry", "+0+0", "-tile", "1x", "montage.png"],
             cwd=str(output_dir),
+            check=True,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )

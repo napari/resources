@@ -53,11 +53,13 @@ VARIANT_DIR = resources.files("napari_resources.resources.logos.variants")
 
 TEMPLATE_FILES = {
     template_path.stem: template_path  # type: ignore
-    for template_path in TEMPLATE_DIR.iterdir()
+    for template_path in sorted(TEMPLATE_DIR.iterdir(), key=lambda p: p.name)
+    if template_path.suffix == ".svg"
 }
 VARIANT_FILES = {
     variant_path.stem: variant_path  # type: ignore
-    for variant_path in VARIANT_DIR.iterdir()
+    for variant_path in sorted(VARIANT_DIR.iterdir(), key=lambda p: p.name)
+    if variant_path.suffix == ".svg"
 }
 
 
@@ -112,7 +114,11 @@ def generate_single_logo(variant, template, mode, output_dir, png=False, icons=F
     if mode == "light":
         color = None
     elif mode == "dark":
-        color = DARK_VARIANT_COLORS.get(variant, None)
+        if variant not in DARK_VARIANT_COLORS:
+            raise ValueError(
+                f"No dark-mode color is defined for variant {variant!r}; pass a custom hex color as the mode instead."
+            )
+        color = DARK_VARIANT_COLORS[variant]
     elif mode.startswith("#") and len(mode) == 7:
         color = mode
         mode = "custom"

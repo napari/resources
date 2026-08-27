@@ -267,7 +267,12 @@ def generate_logos(
         (output_dir / "montage-light.png").unlink()
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """Generate logos from the command line.
+
+    Requires the ``cli`` extra (``click``), which is imported lazily so the
+    module can be used as a library (and by the build hook) without it.
+    """
     import click
 
     @click.command(
@@ -311,9 +316,11 @@ if __name__ == "__main__":
     )
     @click.option("-q", "--quiet", is_flag=True, help="Do not print progress.")
     def cli(**kwargs):
-        """."""
+        """Generate logos based on variants, template and theme."""
         generate_logos(**kwargs)
 
-    cli.__doc__ = generate_logos.__doc__
-
     cli()
+
+
+if __name__ == "__main__":
+    main()

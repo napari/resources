@@ -112,5 +112,10 @@ def generate_font(output_dir):
     print(f"The font was modified; written out to {output}")
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """Generate the font from the command line."""
     generate_font()
+
+
+if __name__ == "__main__":
+    main()

@@ -59,7 +59,7 @@ repository = "https://github.com/napari/napari-resources"
 # https://peps.python.org/pep-0735/
 # setup with `uv sync` or `pip install -e . --group dev`
 [dependency-groups]
-test = ["pytest", "pytest-cov"]
+test = ["pytest", "pytest-cov", "napari-resources[cli,font]"]
 dev = [
     { include-group = "test" },
     "ipython",

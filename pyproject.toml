@@ -6,6 +6,7 @@ build-backend = "hatchling.build"
 # https://hatch.pypa.io/latest/config/metadata/
 [tool.hatch.version]
 source = "vcs"
+fallback_version = "0.0.0"
 
 # read more about configuring hatch at:
 # https://hatch.pypa.io/latest/config/build/

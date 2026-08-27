@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+# `importlib.resources` is aliased to `_resources`: this package contains a
+# subpackage also named `resources`, and importing it would overwrite the plain
+# `resources` name on this module (a classic name clash).
 from importlib import resources as _resources
 from typing import TYPE_CHECKING
 
@@ -39,7 +42,8 @@ def logo_path(name: str) -> Traversable:
         raise FileNotFoundError(
             f"Generated logo {name!r} not found at {path}. "
             "The SVGs are produced at build time; reinstall the package "
-            "(e.g. `pip install -e .` or `uv sync`) or run the generator "
+            "(e.g. `pip install -e .` or `uv sync --reinstall-package "
+            "napari-resources`) or run the generator "
             "(`python -m napari_resources.generate_logos <dest_dir>`) first."
         )
     return path

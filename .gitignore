@@ -1,1 +1,5 @@
-logo/generated/
+*.svg
+*.png
+*.icns
+*.ico
+uv.lock

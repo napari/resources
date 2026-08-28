@@ -90,8 +90,6 @@ def generate_single_logo(
         variant_files = _dict_from_svgs(resources.files("napari_resources.resources.logos.variants"))
     if template_files is None:
         template_files = _dict_from_svgs(resources.files("napari_resources.resources.logos.templates"))
-    if variant_files is None or template_files is None:
-        raise ValueError("variant and template files must be provided")
     if variant in variant_files:
         variant_path = variant_files[variant]
     else:

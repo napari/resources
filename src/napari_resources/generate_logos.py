@@ -86,6 +86,10 @@ def generate_single_logo(
     variant, template, mode, output_dir, png=False, icons=False, variant_files=None, template_files=None
 ):
     """Generate a single logo combination."""
+    if variant_files is None:
+        variant_files = _dict_from_svgs(resources.files("napari_resources.resources.logos.variants"))
+    if template_files is None:
+        template_files = _dict_from_svgs(resources.files("napari_resources.resources.logos.templates"))
     if variant_files is None or template_files is None:
         raise ValueError("variant and template files must be provided")
     if variant in variant_files:
@@ -221,6 +225,10 @@ def generate_logos(
     An empty option means all.
     """
     output_dir = Path(output_dir)
+    if variants_dir is None:
+        variants_dir = resources.files("napari_resources.resources.logos.variants")
+    if templates_dir is None:
+        templates_dir = resources.files("napari_resources.resources.logos.templates")
     available_templates = _dict_from_svgs(templates_dir)
     available_variants = _dict_from_svgs(variants_dir)
     selected_templates = selected_templates or list(available_templates)

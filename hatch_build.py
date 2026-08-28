@@ -9,7 +9,7 @@ from hatchling.builders.hooks.plugin.interface import BuildHookInterface
 
 PROJECT_ROOT = Path(__file__).parent.resolve()
 SRC_DIR = PROJECT_ROOT / "src"
-GENERATED_DIR = SRC_DIR / "napari_resources" / "resources" / "logos" / "generated"
+LOGOS_DIR = SRC_DIR / "napari_resources" / "resources" / "logos"
 
 
 class CustomBuildHook(BuildHookInterface):
@@ -25,6 +25,13 @@ class CustomBuildHook(BuildHookInterface):
         # generate all the logo SVGs from the templates and variants
         from napari_resources.generate_logos import generate_logos
 
-        GENERATED_DIR.mkdir(parents=True, exist_ok=True)
+        output_dir = LOGOS_DIR / "generated"
 
-        generate_logos(output_dir=GENERATED_DIR, quiet=False)
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        generate_logos(
+            output_dir=output_dir,
+            quiet=False,
+            variants_dir=LOGOS_DIR / "variants",
+            templates_dir=LOGOS_DIR / "templates",
+        )

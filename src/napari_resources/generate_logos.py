@@ -48,19 +48,9 @@ namespace = {
 }
 
 
-TEMPLATE_DIR = resources.files("napari_resources.resources.logos.templates")
-VARIANT_DIR = resources.files("napari_resources.resources.logos.variants")
-
-TEMPLATE_FILES = {
-    template_path.stem: template_path  # type: ignore
-    for template_path in sorted(TEMPLATE_DIR.iterdir(), key=lambda p: p.name)
-    if template_path.suffix == ".svg"
-}
-VARIANT_FILES = {
-    variant_path.stem: variant_path  # type: ignore
-    for variant_path in sorted(VARIANT_DIR.iterdir(), key=lambda p: p.name)
-    if variant_path.suffix == ".svg"
-}
+def _dict_from_svgs(directory):
+    """Return a dictionary mapping svg base names (stems) to their full paths."""
+    return {svg.stem: svg for svg in sorted(directory.iterdir(), key=lambda p: p.name) if svg.suffix == ".svg"}
 
 
 def _change_border_color(root, color):
@@ -92,22 +82,26 @@ def _copy_defs(orig, dest):
         dest_defs.append(copy.deepcopy(el))
 
 
-def generate_single_logo(variant, template, mode, output_dir, png=False, icons=False):
+def generate_single_logo(
+    variant, template, mode, output_dir, png=False, icons=False, variant_files=None, template_files=None
+):
     """Generate a single logo combination."""
-    if variant in VARIANT_FILES:
-        variant_path = VARIANT_FILES[variant]
+    if variant_files is None or template_files is None:
+        raise ValueError("variant and template files must be provided")
+    if variant in variant_files:
+        variant_path = variant_files[variant]
     else:
         variant_path = Path(variant)
         if not variant_path.is_file() or variant_path.suffix != ".svg":
-            raise ValueError(f"variant must be either one of {set(VARIANT_FILES)} or a valid svg file. Got {variant}")
+            raise ValueError(f"variant must be either one of {set(variant_files)} or a valid svg file. Got {variant}")
         variant = variant_path.stem
-    if template in TEMPLATE_FILES:
-        template_path = TEMPLATE_FILES[template]
+    if template in template_files:
+        template_path = template_files[template]
     else:
         template_path = Path(template)
         if not template_path.is_file() or template_path.suffix != ".svg":
             raise ValueError(
-                f"template must be either one of {set(TEMPLATE_FILES)} or a valid svg file. Got {template}"
+                f"template must be either one of {set(template_files)} or a valid svg file. Got {template}"
             )
         template = template_path.stem
 
@@ -218,6 +212,8 @@ def generate_logos(
     icons=False,
     montage=False,
     quiet=True,
+    variants_dir=None,
+    templates_dir=None,
 ):
     """Generate logos based on variants, template and theme.
 
@@ -225,8 +221,10 @@ def generate_logos(
     An empty option means all.
     """
     output_dir = Path(output_dir)
-    selected_templates = selected_templates or list(TEMPLATE_FILES)
-    selected_variants = selected_variants or list(VARIANT_FILES)
+    available_templates = _dict_from_svgs(templates_dir)
+    available_variants = _dict_from_svgs(variants_dir)
+    selected_templates = selected_templates or list(available_templates)
+    selected_variants = selected_variants or list(available_variants)
     selected_modes = selected_modes or ("light", "dark")
 
     for variant, template, mode in product(selected_variants, selected_templates, selected_modes):
@@ -237,6 +235,8 @@ def generate_logos(
             output_dir=output_dir,
             png=png,
             icons=icons,
+            variant_files=available_variants,
+            template_files=available_templates,
         )
         if not quiet:
             print(f"Generated {generated_svg.stem}")
@@ -275,6 +275,9 @@ def main() -> None:
     """
     import click
 
+    templates_dir = resources.files("napari_resources.resources.logos.templates")
+    variants_dir = resources.files("napari_resources.resources.logos.variants")
+
     @click.command(
         context_settings={"help_option_names": ["-h", "--help"], "show_default": True},
     )
@@ -288,7 +291,7 @@ def main() -> None:
         "selected_variants",
         type=str,
         multiple=True,
-        help=f"Logo variant to use. Can be either a custom svg path, or one of: {set(VARIANT_FILES)}",
+        help=f"Logo variant to use. Can be either a custom svg path, or one of: {set(_dict_from_svgs(variants_dir))}",
     )
     @click.option(
         "-t",
@@ -296,7 +299,7 @@ def main() -> None:
         "selected_templates",
         type=str,
         multiple=True,
-        help=f"Logo template to use. Can be either a custom svg path, or one of: {set(TEMPLATE_FILES)}",
+        help=f"Logo template to use. Can be either a custom svg path, or one of: {set(_dict_from_svgs(templates_dir))}",
     )
     @click.option(
         "-m",
@@ -317,7 +320,7 @@ def main() -> None:
     @click.option("-q", "--quiet", is_flag=True, help="Do not print progress.")
     def cli(**kwargs):
         """Generate logos based on variants, template and theme."""
-        generate_logos(**kwargs)
+        generate_logos(**kwargs, templates_dir=templates_dir, variants_dir=variants_dir)
 
     cli()
 

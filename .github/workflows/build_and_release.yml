@@ -137,10 +137,11 @@ jobs:
     permissions:
       id-token: write
       contents: write
+      actions: read
 
     steps:
       - name: Download built artifact to dist/
-        uses: actions/download-artifact@a9bc5e6ef2cb54c177f32aa5726adaa15e7e2d59 # v3.1.0
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: Packages
           path: dist
@@ -157,34 +158,35 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: read
 
     steps:
       - name: Download Python packages
-        uses: actions/download-artifact@a9bc5e6ef2cb54c177f32aa5726adaa15e7e2d59 # v3.1.0
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: Packages
           path: dist
 
       - name: Download logo PNGs
-        uses: actions/download-artifact@a9bc5e6ef2cb54c177f32aa5726adaa15e7e2d59 # v3.1.0
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: logos-png
           path: artifacts/logos-png
 
       - name: Download logo SVGs
-        uses: actions/download-artifact@a9bc5e6ef2cb54c177f32aa5726adaa15e7e2d59 # v3.1.0
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: logos-svg
           path: artifacts/logos-svg
 
       - name: Download icons
-        uses: actions/download-artifact@a9bc5e6ef2cb54c177f32aa5726adaa15e7e2d59 # v3.1.0
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: icons
           path: artifacts/icons
 
       - name: Download montage
-        uses: actions/download-artifact@a9bc5e6ef2cb54c177f32aa5726adaa15e7e2d59 # v3.1.0
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: montage
           path: artifacts/montage

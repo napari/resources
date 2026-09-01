@@ -2,6 +2,8 @@
 
 Graphics and copy resources for the napari project.
 
+For a quick download link to the up-to-date logos, see the dowload section of the [latest release](https://github.com/napari/napari-resources/releases/latest).
+
 ## Permissions and usage guidelines
 
 ### License

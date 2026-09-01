@@ -7,6 +7,7 @@ Graphics and copy resources for the napari project.
 ### License
 
 The resources in this repo are available under a [CC-BY-NC-ND 4.0] license.
+The package source code is available under a [BSD 3-Clause](LICENSE) license.
 
 We further kindly request that you follow the guidelines below when using the
 logo.

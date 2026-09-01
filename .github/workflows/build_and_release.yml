@@ -139,6 +139,9 @@ jobs:
       id-token: write
       contents: write
       actions: read
+    environment:
+      name: release
+      url: https://pypi.org/p/napari-resources
 
     steps:
       - name: Download built artifact to dist/

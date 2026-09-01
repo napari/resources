@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: 🐍 Set up Python ${{ matrix.python-version }}
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
         with:
           python-version: ${{ matrix.python-version }}
           enable-cache: true
@@ -46,7 +46,7 @@ jobs:
       # If something goes wrong with --pre tests, we can open an issue in the repo
       - name: 📝 Report --pre Failures
         if: failure() && github.event_name == 'schedule'
-        uses: JasonEtco/create-an-issue@v2
+        uses: JasonEtco/create-an-issue@1b14a70e4d8dc185e5cc76d3bec9eab20257b2c5 # v2.9.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PLATFORM: ${{ matrix.platform }}
@@ -58,7 +58,7 @@ jobs:
           update_existing: true
 
       - name: Coverage
-        uses: codecov/codecov-action@v7
+        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
 
   build_assets:
     name: Build assets for release
@@ -70,7 +70,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up Python
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
         with:
           python-version: "3.14"
 
@@ -140,7 +140,7 @@ jobs:
 
     steps:
       - name: Download built artifact to dist/
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@a9bc5e6ef2cb54c177f32aa5726adaa15e7e2d59 # v3.1.0
         with:
           name: Packages
           path: dist
@@ -160,31 +160,31 @@ jobs:
 
     steps:
       - name: Download Python packages
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@a9bc5e6ef2cb54c177f32aa5726adaa15e7e2d59 # v3.1.0
         with:
           name: Packages
           path: dist
 
       - name: Download logo PNGs
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@a9bc5e6ef2cb54c177f32aa5726adaa15e7e2d59 # v3.1.0
         with:
           name: logos-png
           path: artifacts/logos-png
 
       - name: Download logo SVGs
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@a9bc5e6ef2cb54c177f32aa5726adaa15e7e2d59 # v3.1.0
         with:
           name: logos-svg
           path: artifacts/logos-svg
 
       - name: Download icons
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@a9bc5e6ef2cb54c177f32aa5726adaa15e7e2d59 # v3.1.0
         with:
           name: icons
           path: artifacts/icons
 
       - name: Download montage
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@a9bc5e6ef2cb54c177f32aa5726adaa15e7e2d59 # v3.1.0
         with:
           name: montage
           path: artifacts/montage

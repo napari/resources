@@ -33,8 +33,8 @@ DARK_VARIANT_COLORS = {
     "round": "#ccb98f",
     "sith": "#00b6e1",
     "workshop": "#ccb98f",
-    "monochrome_outline": "ffffff",
-    "monochrome_filled": "ffffff",
+    "monochrome_outline": "#ffffff",
+    "monochrome_filled": "#ffffff",
 }
 
 
